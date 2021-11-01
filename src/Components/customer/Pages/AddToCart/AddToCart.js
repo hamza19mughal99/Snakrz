@@ -201,13 +201,13 @@ const AddToCart = (props) => {
 
                         <div className={'d-flex justify-content-around mt-4'}>
                             <div className="form-check">
-                                <input style={{ fontSize: '20px' }} onChange={(e) => radioHandler(e)} value={true} checked={radioBtn === true} className="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                                <input style={{ fontSize: '20px' }} required onChange={(e) => radioHandler(e)} value={true} checked={radioBtn === true} className="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                                 <label style={{ fontSize: '20px', color: "#424770" }} className="form-check-label" for="flexRadioDefault1">
                                     PickUp
                                 </label>
                             </div>
                             <div className="form-check">
-                                <input style={{ fontSize: '20px' }} onChange={(e) => radioHandler(e)} value={false} checked={radioBtn === false} className="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                                <input style={{ fontSize: '20px' }} required onChange={(e) => radioHandler(e)} value={false} checked={radioBtn === false} className="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                                 <label style={{ fontSize: '20px', color: "#424770" }} className="form-check-label" for="flexRadioDefault2">
                                     Delivery
                                 </label>

@@ -163,6 +163,7 @@ const Orders = (props) => {
                                                                             <a onClick={() => ModalHandler(order)} >View Map</a>
                                                                             <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> Order is Ready</p>
                                                                         </div>
+                                                                        
                                                                         : null
                                                                     }
             

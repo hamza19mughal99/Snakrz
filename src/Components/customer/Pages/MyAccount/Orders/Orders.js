@@ -163,18 +163,31 @@ const Orders = (props) => {
                                                                             <a onClick={() => ModalHandler(order)} >View Map</a>
                                                                             <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> Order is Ready</p>
                                                                         </div>
-                                                                        
+
                                                                         : null
                                                                     }
-            
+                                                                    {!order.pickUp && (order.orderStatus === 'READY') ?
+                                                                        <div className="d-flex mt-0">
+                                                                            <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> Your Order is Ready and will be deliver soon.</p>
+                                                                        </div> : null
+
+                                                                    }
+
                                                                     {
                                                                         order.orderStatus === 'UNDER_APPROVAL' ?
                                                                             <p style={{ fontWeight: "bold", color: "#fff" }}>Your Order is yet to approve</p> : null
                                                                     }
                                                                     {
-                                                                        order.orderStatus === 'IN_PROGRESS' ?
+                                                                        order.pickUp && (order.orderStatus === 'IN_PROGRESS') ?
                                                                             <div className="d-flex">
                                                                                 <a onClick={() => ModalHandler(order)} >View Map</a>
+                                                                                <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> <Countdown date={Date.now() + order.totalTime} /></p>
+                                                                            </div>
+                                                                            : null
+                                                                    }
+                                                                    {
+                                                                        !order.pickUp && (order.orderStatus === 'IN_PROGRESS') ?
+                                                                            <div className="d-flex">
                                                                                 <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> <Countdown date={Date.now() + order.totalTime} /></p>
                                                                             </div>
                                                                             : null

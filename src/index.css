@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'Noir';
+  font-style: normal;
+  src: url('./assets/customer/fonts/Noir/NoirPro-Regular.ttf'); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: 'Noir-Bold';
+  font-style: normal;
+  src: url('./assets/customer/fonts/Noir/NoirPro-Bold.ttf'); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: 'Noir-Light';
+  font-style: normal;
+  src: url('./assets/customer/fonts/Noir/NoirPro-Light.ttf'); /* IE9 Compat Modes */
+}
+
+@font-face {
+  font-family: 'Noir-Medium';
+  font-style: normal;
+  src: url('./assets/customer/fonts/Noir/NoirPro-Medium.ttf'); /* IE9 Compat Modes */
+}
+
+body {
+  margin: 0;
+  font-family: 'Noir', sans-serif !important;
+}
+

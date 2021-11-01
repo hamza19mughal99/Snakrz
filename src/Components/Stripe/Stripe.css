@@ -1,0 +1,17 @@
+.form-control {
+    font-family: 'Poppins', sans-serif !important;
+    color: #495057 !important;
+    font-weight: 500 !important;
+ 
+ }
+ .form-control:focus {
+    color: #495057 !important;
+    background-color: transparent !important;
+    border-color: #ffffff08 !important;
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.2rem rgb(255 255 255 / 0%) !important;
+ }
+
+ ::placeholder { 
+   color: grey;
+ }

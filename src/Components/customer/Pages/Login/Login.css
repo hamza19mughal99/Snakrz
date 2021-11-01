@@ -1,0 +1,61 @@
+.registration{
+    display: flex;
+    justify-content: center;
+}
+
+.signup-content{
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    height: 80vh;
+}
+
+
+.icon{
+    margin-right: 20px;
+}
+input{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button,
+input[type=text] { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+.image-fluid{
+    width: 500px;
+}
+.signup-form{
+    margin: 20px 0;
+}
+.signup-form h2{
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+.signup-content{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.form-group{
+    margin: 25px;
+}
+.form-button{
+    text-align: center;
+    border: none;
+    border: 2px solid #3c873a;
+    padding: 8px 20px !important;
+    border-radius: 30px;
+    
+}
+.form-submit{
+    border-bottom: none !important;
+    background-color: #fff;
+}

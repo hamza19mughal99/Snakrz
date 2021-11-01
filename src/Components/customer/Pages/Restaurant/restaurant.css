@@ -1,0 +1,143 @@
+.res-img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-top-right-radius: 5rem !important;
+    border-top-left-radius: 5rem !important;
+}
+
+.main-section{
+    border-top-right-radius: 5rem !important;
+    border-top-left-radius: 5rem !important;
+}
+
+.bar-view1 {
+    background-color: #ff4200;
+    padding: 1px;
+    width: 21%;
+}
+.bar-view2 {
+    background-color: #ff4200;
+    padding: 1px;
+    width: 18%;
+    margin-top: 5px !important;
+}
+
+.menu_img img {
+    height: 146px;
+    object-fit: cover;
+}
+.tabs-div{
+    color: #ff4200 !important;
+}
+.btn-send {
+    background-color: #ff4200;
+    color: #fff;
+    font-weight: 700 !important;
+    border-radius: 6px;
+    font-size: 15px !important;
+    padding: 8px;
+    border: none;
+    margin-bottom: 5px !important;
+    text-decoration: none !important;
+}
+
+.btn-main {
+    background-color: #ff4200;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 6px;
+    font-size: 15px !important;
+    padding: 12px;
+    border: none;
+    margin-bottom: 5px !important;
+    text-transform: uppercase;
+    text-decoration: none !important;
+ }
+
+
+ .btn-main:hover{
+    background-color: #ff4200;
+    color: #fff;
+ }
+
+.btn-visit {
+    background-color: #ff4200;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 3px;
+    padding: 8px 40px !important;
+    border: none;
+}
+.btn-visit:hover {
+    font-weight: 500;
+    transition: 0.5s;
+    color: #ff4200;
+    background-color: #fff;
+}
+
+.btn-send:hover {
+    font-weight: 500;
+    transition: 0.5s;
+    color: #ff4200;
+    background-color: #fff;
+}
+
+.check_btn{
+    background-color: #ff4200;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 6px;
+    font-size: 18px !important;
+    padding: 12px;
+    border: none;
+}
+
+.main_menu{
+    position: relative;
+}
+.counter{
+position: absolute;
+right: 13px;
+bottom: 40px
+}
+
+.disable_menu{
+    pointer-events: none;
+    opacity: 0.5;
+    position: relative;
+}
+.disable-counter{
+    display: none;
+position: absolute;
+right: 13px;
+bottom: 40px
+}
+
+.PrivateTabIndicator-colorSecondary-3 {
+    background-color: #FF4200!important;
+}
+
+.map_wrapper{
+    position: relative;
+    min-height: 500px;
+}
+@media (max-width: 991px) {
+    .shops_div{
+        padding: 35px !important;
+    }
+    h3{
+        font-size: 25px !important;
+        font-weight: bold;
+    }
+
+}
+
+.res_div {
+    margin-bottom: 80px !important;
+}
+
+.shop_cart img {
+    height: 200px;
+    object-fit: cover;
+}

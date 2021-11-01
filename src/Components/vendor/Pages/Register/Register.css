@@ -1,0 +1,41 @@
+#register__section {
+    background-color: #f7f7f7;
+}
+#register__form {
+    background-color: white;
+    padding: 0 30px;
+}
+#left__content{
+    background-image: url('../../../../assets/customer/img/vendor_register.jpg');
+    background-size: cover;
+    height: 100vh;
+}
+
+.left__text {
+    padding-top: 210px;
+}
+
+.left__list {
+    padding-top: 60px;
+}
+
+.left__list li {
+    padding: 7px 0;
+    list-style-type: none;
+}
+.left__list li:before {
+    content: '✓';
+}
+
+
+@media (max-width: 1199px) {
+    #left__content {
+        display: none;
+    }
+    #right__content {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+

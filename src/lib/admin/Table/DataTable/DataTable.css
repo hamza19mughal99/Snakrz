@@ -1,0 +1,9 @@
+.zmdi-edit {
+    cursor: pointer;
+    color: green;
+}
+
+#dataTable__add {
+    display: inline;
+    float: right;
+}

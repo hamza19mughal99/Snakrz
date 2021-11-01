@@ -1,0 +1,9 @@
+.vendor-dash{
+    width: 35%;
+}
+
+@media (max-width: 991px) {
+    .vendor-dash{
+        width: 100%;
+    }
+}

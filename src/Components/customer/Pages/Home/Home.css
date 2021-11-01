@@ -1,0 +1,188 @@
+.registration{
+    display: flex;
+    justify-content: center;
+}
+
+/* .signup-content{ */
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    /* height: 80vh; */
+/* } */
+
+
+.icon{
+    margin-right: 20px;
+}
+.login-h4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+input{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=text] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+.image-fluid{
+    width: 500px;
+}
+.signup-form{
+    margin: 20px 0;
+}
+.signup-form h2{
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+.signup-content{
+    display: flex;
+     justify-content: space-around;
+    align-items: center;
+}
+.form-group{
+    margin: 25px;
+}
+.form-button{
+    text-align: center;
+    border: none;
+    border: 2px solid #3c873a;
+    padding: 8px 20px !important;
+    border-radius: 30px;
+
+}
+.form-submit{
+    border-bottom: none !important;
+    background-color: #fff;
+}
+
+/* Home page start  */
+
+.navbar-brand{
+    font-size: 30px !important;
+    font-weight: 700;
+    /* text-decoration: none !important; */
+}
+.nav-link{
+    text-align: center;
+    border: none;
+    border: 2px solid #3c873a;
+    padding: 8px 30px !important;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.login{
+    text-decoration: none !important;
+}
+.home-section{
+    display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 76vh;
+
+}
+.home-section h2{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ height: 100%;
+ font-weight: 700;
+}
+/* Home page  end */
+
+
+
+.sidenav-button{
+    text-align: center;
+    border: none;
+    border: 2px solid #3c873a;
+    padding: 8px 30px !important;
+    border-radius: 30px;
+    background-color: #fff !important;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.edit-profile{
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    border: none;
+    border: 2px solid #3c873a;
+    padding: 8px 30px !important;
+    border-radius: 30px;
+    background-color: #fff !important;
+    /* margin-left: 20px; */
+    margin-top: 10px !important;
+    margin-bottom: 20px;
+}
+.student-main{
+    display: flex;
+    justify-content: center;
+}
+.student-h4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+.dropdown-button{
+    margin-left: 1040px !important;
+}
+.main-edit{
+    display: flex;
+    justify-content: space-around;
+}
+.user-details{
+    display: flex;
+    justify-content: space-between;
+}
+.course-details{
+    padding: 20px 0 0 10px;
+}
+.userDetails-div{
+    margin: 20px 0 20px 10px
+}
+.userDetails-div h5 {
+    margin-bottom: 20px;
+}
+.edit-profile-button{
+    text-align: center;
+    border: none;
+    border: 2px solid #3c873a;
+    padding: 8px 30px !important;
+    border-radius: 30px;
+    background-color: #fff !important;
+    margin: 20px 10px 0 0;
+}
+.main-edit-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.student-edit{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.css-yk16xz-control {
+    border-style: none !important;
+}
+

@@ -1,0 +1,28 @@
+.customer__auth {
+    background-color: #ededed;
+    height: 100vh;
+}
+
+.customer__login__top {
+    background-color: white;
+}
+
+.detail__input__login_customer {
+    border-radius: 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    padding: 25px 10px;
+}
+
+.input__prepend__login_customer {
+    background-color: transparent;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.login__btn {
+    color: black;
+    border-color: black;
+}

@@ -1,0 +1,12 @@
+.vendor-menu img{
+    height: 117px !important;
+    object-fit: cover;
+    margin-left: 11px;
+}
+
+@media (max-width: 991px) {
+    .vendor-menu img{
+        margin-left: 0px;
+    }
+
+}

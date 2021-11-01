@@ -1,0 +1,520 @@
+/* shop  */
+.shop-ring {
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+.shop-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 260px;
+    left: 230px;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: shop-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.shop-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.shop-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.shop-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes shop-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.shop-progress {
+    position: relative;
+}
+.shop-progress p{
+ position: absolute;
+ left: 215px !important;
+ top: 280px !important;
+}
+/* shop  */
+
+/* shopView */
+.shopViewRing {
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+.shopViewRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 670px !important;
+    top: 180px !important;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: shopViewRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.shopViewRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.shopViewRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.shopViewRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes shopViewRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.shopViewProgress {
+    position: relative;
+    margin-bottom: 100% !important;
+}
+.shopViewProgress p{
+ position: absolute;
+ left: 650px !important;
+ top: 200px !important;
+}
+/* shopView */
+
+/* Appointment  */
+.RingAppointment {
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+.RingAppointment div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    /* left: 20px !important; */
+    top: 0px !important;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: RingAppointment 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.RingAppointment div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.RingAppointment div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.RingAppointment div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes RingAppointment {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ProgressAppointment p{
+ display: none;
+}
+/* Appointment  */
+
+/* login */
+.Ringlogin {
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+.Ringlogin div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 140px !important;
+    top: 20px !important;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: Ringlogin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.Ringlogin div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.Ringlogin div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.Ringlogin div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes Ringlogin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.Progresslogin p{
+ display: none;
+}
+/* login */
+/* Register */
+.RegisterRing {
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 25px;
+}
+.RegisterRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 120px !important;
+    top: 20px !important;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: RegisterRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.RegisterRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.RegisterRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.RegisterRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes RegisterRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.RegisterProgress p{
+ display: none;
+}
+/* Register */
+/* staff  */
+.StaffRing {
+    display: inline-block;
+    /* position: relative; */
+    width: 40px;
+    height: 40px;
+}
+.StaffRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 14px;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: StaffRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.StaffRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.StaffRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.StaffRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes StaffRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* staff */
+
+/* services */
+.ServiceRing {
+    display: inline-block;
+    position: relative;
+}
+.ServiceRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    bottom: 4px;
+    left: 14px;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: ServiceRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.ServiceRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.ServiceRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.ServiceRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes ServiceRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* services */
+/* category  */
+.CategoryRing {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+.CategoryRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 14px;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: CategoryRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.CategoryRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.CategoryRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.CategoryRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes CategoryRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* category */
+/* appointment  */
+.appointmentRing {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    
+}
+.appointmentRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 14px;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: appointmentRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.appointmentRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.appointmentRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.appointmentRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes appointmentRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* appointment  */
+/* setting */
+.SettingRing {
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100vh;
+}
+.SettingRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 300px;
+    left: 500px !important;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: SettingRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.SettingRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.SettingRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.SettingRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes SettingRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+ .SettingProgress{
+     position: relative; 
+    
+
+ } 
+.SettingProgress p{
+    position: absolute;
+    bottom: 440px !important;
+    left: 315px !important;
+}
+/* setting */
+/* gallery  */
+.GalleryRing {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+.GalleryRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    left: 14px !important;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: GalleryRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.GalleryRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.GalleryRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.GalleryRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes GalleryRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+.GalleryProgress p{
+    width: 100px !important;
+}
+/* gallery */
+
+.StaffsRing {
+    display: inline-block;
+width: 40px;
+    height: 40px;
+}
+.StaffsRing div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    margin: 5px;
+    border: 4px solid;
+    border-radius: 50%;
+    animation: StaffsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #000000 transparent transparent transparent;
+}
+.StaffsRing div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.StaffsRing div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.StaffsRing div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes StaffsRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -18,7 +18,7 @@ const Stripe = () => {
     ]
 
     const state = [
-        'New York'
+        'NY'
     ]
 
 

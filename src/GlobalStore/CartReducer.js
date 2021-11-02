@@ -32,18 +32,17 @@ export const reducer = (state, action) => {
             }
             else {
                 product = action.cartData;
-                console.log(product)
                 product.Quantity = 1
                 let indQty = 1
                 updatedQty = parseInt(totalQuantity) + 1;
-                updatedPrice = totalAmount + product.Productprice;
+                updatedPrice = totalAmount + product.productPrice;
                 let UpdatedCart
                 if ( cart && cart.length > 0) {
                      UpdatedCart = [product, ...cart,]
                 } else {
                      UpdatedCart = [product]
                 }
-                console.log(cart)
+                                
                 localStorage.setItem('cart', JSON.stringify(UpdatedCart))
                 return {
                     shoppingCart: UpdatedCart,

@@ -34,7 +34,7 @@ const Orders = (props) => {
             let minuteIntoMiliSecond = (minute * (1000 * 60))
             let timer = minuteIntoMiliSecond + hourIntoMiliSecond
             const actualDifferenceInMiliSecond = timer - diff
-            if (actualDifferenceInMiliSecond <= 0) {
+            if (actualDifferenceInMiliSecond <= 0 && order.orderStatus === "IN_PROGRESS") {
                 axios.put('/vendor/to-ready/' + order._id)
                     .then((res) => {
                         console.log(res.data)

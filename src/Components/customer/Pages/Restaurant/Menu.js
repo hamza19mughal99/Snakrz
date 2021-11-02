@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Row, Col, Modal } from "react-bootstrap";
 import { CartContext } from '../../../../GlobalStore/CartContext';
@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 
 
 const Menu = (props) => {
+
+
     const theme = useTheme();
     const storeId = props.store
     const [showModal, setShowModal] = useState(false)
@@ -24,11 +26,11 @@ const Menu = (props) => {
     const [checkAddOn, setCheckAddOn] = useState([]);
     const [radioBtn, setRadioBtn] = useState({})
 
-
+    console.log("ADDON", checkAddOn)
     let cart = JSON.parse(localStorage.getItem('cart'))
 
-    const { shoppingCart, dispatch } = useContext(CartContext);
-    console.log(shoppingCart)
+    const { dispatch } = useContext(CartContext);
+    // console.log(shoppingCart)
 
     const modalOpenHandler = () => {
         setShowModal(!showModal)
@@ -87,12 +89,16 @@ const Menu = (props) => {
             id: cartData._id,
             cartData
         })
+        setCheckAddOn([])
         setShowAddOnModal(false)
         setRadioBtn({})
 
     }
     const onChangeHandler = (e, addOnData, data) => {
         console.log(addOnData)
+        console.log(e.target.checked)
+        console.log(checkAddOn)
+        console.log(data)
         if (e.target.checked) {
 
             let checkedAddOn = checkAddOn
@@ -106,6 +112,7 @@ const Menu = (props) => {
             let bool = true;
 
             checkedAddOn.forEach((checkData, index) => {
+                console.log(checkData)
                 if (checkData.id === addOnData._id) {
                     bool = false;
                 } else if (checkData.title === data.title) {

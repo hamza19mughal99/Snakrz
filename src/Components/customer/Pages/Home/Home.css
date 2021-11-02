@@ -12,6 +12,22 @@
 .icon{
     margin-right: 20px;
 }
+
+
+.main-search-section{
+    display: flex;
+}
+
+@media (max-width: 991px) {
+    .main-search-section{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+}
+
+
+
 .login-h4{
     display: flex;
     justify-content: center;

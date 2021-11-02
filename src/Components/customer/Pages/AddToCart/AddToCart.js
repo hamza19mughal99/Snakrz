@@ -37,6 +37,8 @@ const AddToCart = (props) => {
 
     useEffect(() => {
 
+        window.scrollTo(0, 0)
+
         axios.get('/current-user', { headers: { "Authorization": `Bearer ${token}` } })
             .then((res) => {
                 setUserName(res.data.name);
@@ -99,7 +101,7 @@ const AddToCart = (props) => {
         //     setErrorMessage(error.message)
         // }
 
-        let formData = { orderData, storeId, pickUp: radioBtn };
+        let formData = { orderData, storeId, pickUp: radioBtn, totalPrice: totalAmount };
         const cardElement = elements.getElement(CardElement)
 
         stripe.createToken(cardElement).then((result) => {
@@ -155,17 +157,17 @@ const AddToCart = (props) => {
         <>
             <ApiError show={isApiError} error={isMsgError} />
             <div className="d-flex justify-content-around flex-wrap">
-                <div style={{width: "45%"}} className={' container main-section mb-5 shadow border-0 bg-white h-100 mr-3'}>
+                <div style={{ width: "45%" }} className={' container main-section mb-5 shadow border-0 bg-white h-100 mr-3'}>
                     <h2 style={{ fontWeight: 700 }} className={'mt-3 text-center'}>DELIVERY DETAILS</h2>
                     <hr />
                     <h3 style={{ fontWeight: 600 }}>Personal Details</h3>
                     <div className=" p-details shadow border-0 bg-white mb-5 pl-2 pt-2 pb-2 w-75">
-                            <h5> {userName} </h5>
-                            <hr />
-                            <p>{userEmail}</p>
-                            <hr />
-                            <p>{userPhone}</p>
-                        
+                        <h5> {userName} </h5>
+                        <hr />
+                        <p>{userEmail}</p>
+                        <hr />
+                        <p>{userPhone}</p>
+
                     </div>
 
                     <Form onSubmit={createOrders}>
@@ -235,7 +237,7 @@ const AddToCart = (props) => {
                     </Form>
                 </div>
 
-                <div style={{width: "45%"}} className={'container main-section mb-5 shadow border-0 bg-white h-100 mr-3 '}>
+                <div style={{ width: "45%" }} className={'container main-section mb-5 shadow border-0 bg-white h-100 mr-3 '}>
                     <h3 className={' cart-sec mt-3 text-center'}>IN YOUR CART</h3>
                     <hr />
                     <div className="mt-4" >

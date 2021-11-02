@@ -36,6 +36,7 @@ const Login = props => {
 
     let errorMessage = null;
     if (props.error) {
+        console.log(props.error)
         errorMessage = <p className={'text-danger font-weight-bold '}>Something went wrong!</p>
     }
     return (

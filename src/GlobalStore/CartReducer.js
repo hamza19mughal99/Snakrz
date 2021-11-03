@@ -13,6 +13,7 @@ export const reducer = (state, action) => {
 
         case 'ADD_TO_CART':
             let check;
+            console.log("ACTION",action)
             if (!cart) {
 
                 check = false

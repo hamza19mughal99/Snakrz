@@ -28,6 +28,7 @@ const Menu = (props) => {
 	const [isMsgError, setIsMsgError] = useState(null)
 	const [addOn, setAddOn] = useState(null)
 	const [category, setCategory] = useState(null)
+	const [timeError, setTimeError] = useState(null)
 	let error = {}
 
 	const { addToast } = useToasts()
@@ -84,17 +85,15 @@ const Menu = (props) => {
 		axios.get('/vendor/product/' + menuId, { headers: { "Authorization": `Bearer ${token}` } })
 			.then((res) => {
 				console.log(res.data.addOn)
-				setEditFormData(res.data.product);
 
 				let time = res.data.product.time
 				console.log(time)
 
 				let arr = time.split(':');
-				let hour = parseInt(arr[0]) + " hrs";
-				let min = parseInt(arr[1]) + " min";
-
-				console.log(hour)
-				console.log(min)
+				res.data.product.hours = arr[0]
+				res.data.product.mins = arr[1]
+				console.log(res.data.product)
+				setEditFormData(res.data.product);
 
 				setAddOn(res.data.addOn)
 				setCategory(res.data.category);
@@ -127,7 +126,6 @@ const Menu = (props) => {
 				error.productName = "Cannot be empty"
 			}
 
-
 		}
 
 	}
@@ -145,27 +143,39 @@ const Menu = (props) => {
 			min = `0${data.min}`;
 		}
 
-		const formData = new FormData();
-		formData.append("productName", data.productName);
-		formData.append("productPrice", data.productPrice);
-		formData.append("productPicture", data.productPicture[0])
-		formData.append("productAddOn", JSON.stringify(data.addOn))
-		formData.append("category", data.category.value)
-		formData.append('time', `${hour}:${min}`)
+		if (hour > 0 && (min > 0 && min <= 60)) {
+			const formData = new FormData();
+			formData.append("productName", data.productName);
+			formData.append("productPrice", data.productPrice);
+			formData.append("productPicture", data.productPicture[0])
+			formData.append("category", data.category.value)
+			if (data.addOn) {
+				formData.append("productAddOn", JSON.stringify(data.addOn))
+			}
+			formData.append('time', `${hour}:${min}`)
 
-		axios.post('/vendor/product', formData, { headers: { "Authorization": `Bearer ${token}` } })
-			.then(() => {
-				setShow(!show)
-				setSubmitLoader(false);
-				vendorMenuCreated(addToast)
-			})
-			.catch((err) => {
-				setIsApiError(true)
-				setIsMsgError(err.message)
-				console.log("VENDOR PRODUCT POST", err)
-			})
+			axios.post('/vendor/product', formData, { headers: { "Authorization": `Bearer ${token}` } })
+				.then(() => {
+					setShow(!show)
+					setSubmitLoader(false);
+					vendorMenuCreated(addToast)
+				})
+				.catch((err) => {
+					setIsApiError(true)
+					setIsMsgError(err.message)
+					console.log("VENDOR PRODUCT POST", err)
+				})
 
-		reset({})
+			reset({})
+		}
+
+		else {
+			setTimeError("Hour should be greater than 0 and minutes should be greater than 0 and less than 60")
+			setSubmitLoader(false);
+
+		}
+
+
 	}
 
 	const addOnPromiseHandler = () =>
@@ -235,6 +245,9 @@ const Menu = (props) => {
 						</div>
 						<small className="text-danger" style={{ fontWeight: "bold" }} >
 							{errors.hours && errors.hours.message}
+							{
+								timeError
+							}
 						</small>
 
 					</FormGroup>
@@ -263,7 +276,7 @@ const Menu = (props) => {
 						<Label for="Select">Add On</Label>
 						<Controller
 							name="addOn"
-							rules={{ required: true }}
+							// rules={{ required: true }}
 							control={control}
 							render={({ field: { value, onChange, ref } }) => (
 								<AsyncSelect
@@ -302,27 +315,48 @@ const Menu = (props) => {
 
 	const onEditFormSubmit = (data) => {
 		setSubmitLoader(true);
-		console.log('MY DATA ', data)
-		const formData = new FormData();
-		formData.append("productName", editFormData.productName);
-		formData.append("productPrice", editFormData.productPrice);
-		formData.append("productPicture", data.productPicture[0]);
-		formData.append("currentPicture", JSON.stringify(editFormData.productPicture))
-		formData.append("category", category.value)
-		formData.append("productAddOn", JSON.stringify(addOn))
 
-		axios.put('/vendor/product/' + staffId, formData, { headers: { "Authorization": `Bearer ${token}` } })
-			.then(() => {
-				setShowEdit(!showEdit)
-				setSubmitLoader(false);
-				vendorMenuUpdated(addToast)
-			})
-			.catch((err) => {
-				setIsApiError(true)
-				setIsMsgError(err.message)
-				console.log("VENDOR PRODUCT PUT", err)
-			})
-		reset({})
+
+		if (editFormData.hours >= 0 && (editFormData.mins >= 0 && editFormData.mins <= 60)) {
+
+			let hour = editFormData.hours
+			let min = editFormData.mins
+
+			if (hour.length === 1) {
+				hour = `0${editFormData.hours}`;
+			}
+			if (min.length === 1) {
+				min = `0${editFormData.mins}`;
+			}
+
+			const formData = new FormData();
+			formData.append("productName", editFormData.productName);
+			formData.append("productPrice", editFormData.productPrice);
+			formData.append("productPicture", data.productPicture[0]);
+			formData.append("currentPicture", JSON.stringify(editFormData.productPicture))
+			formData.append("category", category.value)
+			formData.append("productAddOn", JSON.stringify(addOn))
+			formData.append("time", `${hour}:${min}`)
+
+			axios.put('/vendor/product/' + staffId, formData, { headers: { "Authorization": `Bearer ${token}` } })
+				.then(() => {
+					setShowEdit(!showEdit)
+					setSubmitLoader(false);
+					vendorMenuUpdated(addToast)
+				})
+				.catch((err) => {
+					setIsApiError(true)
+					setIsMsgError(err.message)
+					console.log("VENDOR PRODUCT PUT", err)
+				})
+			reset({})
+		}
+		else {
+			setTimeError("Hour should be greater than 0 and minutes should be greater than 0 and less than 60")
+			setSubmitLoader(false);
+		}
+
+
 	}
 
 	let name, value;
@@ -370,7 +404,7 @@ const Menu = (props) => {
 									{error.productPrice}
 								</small>
 							</FormGroup>
-							{/* <FormGroup>
+							<FormGroup>
 								<Label>Time</Label>
 								<div className={'d-flex justify-content-around'}>
 									<Input
@@ -390,7 +424,10 @@ const Menu = (props) => {
 										onChange={onChangeHandler}
 									/>
 								</div>
-							</FormGroup> */}
+								<small className="text-danger" style={{ fontWeight: "bold" }} >
+									{timeError}
+								</small>
+							</FormGroup>
 							<FormGroup>
 								<Label for="Select">Category</Label>
 								<AsyncSelect

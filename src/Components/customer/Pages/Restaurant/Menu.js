@@ -95,10 +95,6 @@ const Menu = (props) => {
 
     }
     const onChangeHandler = (e, addOnData, data) => {
-        console.log(addOnData)
-        console.log(e.target.checked)
-        console.log(checkAddOn)
-        console.log(data)
         if (e.target.checked) {
 
             let checkedAddOn = checkAddOn
@@ -277,6 +273,8 @@ const Menu = (props) => {
         </Row>
     )
 
+
+
     return (
         <>
             {myModal}
@@ -331,7 +329,7 @@ const Menu = (props) => {
                                                                             onClick={() => dispatch({
                                                                                 type: 'ADD_TO_CART',
                                                                                 id: item._id,
-                                                                                item
+                                                                                cartData: item
                                                                             })}
                                                                             className={' btn-send '}
                                                                         >ADD TO CART</button>

@@ -265,6 +265,9 @@ const Customers = props => {
 
 	const mapModal = (
 		<Modal show={show2} onClick={handleClose2} size={'lg'} >
+			<div className="d-flex justify-content-end">
+					<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose2} title="Close Staff">X</p>
+				</div>
 			<div className={'map_wrapper_setting'}>
 				<Map google={props.google}
 					initialCenter={customerLocation}

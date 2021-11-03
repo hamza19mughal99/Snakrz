@@ -7,7 +7,8 @@ import axios from "axios";
 import {
 	addOnAddSuccessfully,
 	addOnDeletedSuccessfully,
-	addOnEditSuccessfully
+	addOnEditSuccessfully,
+	CategoryDeletedError
 } from "../../../../lib/customer/Toaster/Toaster";
 import { confirmAlert } from "react-confirm-alert";
 import { Form, FormGroup, Input } from "reactstrap";
@@ -55,6 +56,7 @@ const Category = props => {
 							.then((res) => {
 								if (!res.data.deleted) {
 									setSubmitLoader(false)
+									CategoryDeletedError(addToast)
 								} else {
 									setSubmitLoader(false)
 									addOnDeletedSuccessfully(addToast)
@@ -169,6 +171,7 @@ const Category = props => {
 						<Input
 							type="text"
 							name="title"
+							required
 							placeholder="Title"
 							value={formData.title}
 							onChange={onChangeHandler}
@@ -200,6 +203,7 @@ const Category = props => {
 						<Input
 							type="text"
 							name="title"
+							required
 							placeholder="Title"
 							value={editFormData.title}
 							onChange={onEditChangeHandler}
@@ -284,7 +288,7 @@ const Category = props => {
 				<ApiError show={isApiError} error={isMsgError} />
 				{modal}
 				{editModal}
-				<PageTitleBar title='Add On' match={props.match} />
+				<PageTitleBar title='Category' match={props.match} />
 				<Row className={'justify-content-end'}>
 					<Col md={2} sm={12} lg={1} className="mr-1">
 						<button className={'text-center btn btn-send btn-block'}

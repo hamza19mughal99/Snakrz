@@ -17,7 +17,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/c
 
 const AddOn = props => {
 	const columns = ['Title', 'AddOn', 'Actions'];
-	const [addOn, setAddOn] = useState(null);
+	const [addOns, setAddOns] = useState(null);
 	const [show, setShow] = useState(false);
 	const [showEdit, setShowEdit] = useState(false);
 	const [submitLoader, setSubmitLoader] = useState(false);
@@ -32,7 +32,7 @@ const AddOn = props => {
 		price: ''
 	});
 	const [addOnError, setAddOnError] = useState(null)
-	const [staffId, setStaffId] = useState('');
+	const [staffId, setStaffId] = useState(null);
 	const [isApiError, setIsApiError] = useState(false)
 	const [isMsgError, setIsMsgError] = useState(null)
 	const [addOnArr, setAddOnArr] = useState([]);
@@ -45,7 +45,7 @@ const AddOn = props => {
 	useEffect(() => {
 		axios.get('/vendor/add-ons', { headers: { "Authorization": `Bearer ${token}` } })
 			.then((res) => {
-				setAddOn(res.data);
+				setAddOns(res.data);
 			})
 	}, [submitLoader])
 
@@ -61,18 +61,22 @@ const AddOn = props => {
 						setSubmitLoader(true)
 						axios.delete('/vendor/add-on/' + menuId, { headers: { "Authorization": `Bearer ${token}` } })
 							.then((res) => {
+								console.log(res.data)
 								if (!res.data.deleted) {
 									setSubmitLoader(false)
 									addOnDeletedError(addToast)
 								}
-								setSubmitLoader(false)
-								addOnDeletedSuccessfully(addToast)
+								else {
+									setSubmitLoader(false)
+									addOnDeletedSuccessfully(addToast)
+								}
+
 							}).catch((err) => {
-							setIsApiError(true)
-							setIsMsgError(err.message)
-							console.log("VENDOR MENU DELETE", err)
-							setSubmitLoader(false)
-						})
+								setIsApiError(true)
+								setIsMsgError(err.message)
+								console.log("VENDOR MENU DELETE", err)
+								setSubmitLoader(false)
+							})
 					}
 				},
 				{
@@ -163,7 +167,7 @@ const AddOn = props => {
 
 	const [editAddOnErrors, setEditAddOnErrors] = useState('')
 	const onAddEditHandler = () => {
-		if (formData.title === '' || formData.name === '' || formData.price === '') {
+		if (editFormData.title === '' || editFormData.name === '' || editFormData.price === '') {
 			setEditAddOnErrors('All Fields cannot be empty')
 
 		}
@@ -254,8 +258,8 @@ const AddOn = props => {
 					<h2 style={{ fontWeight: "bold" }}> Add Add On </h2>
 					<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose} title="Close Staff">X</p>
 				</div>
-				<p style={{fontWeight: "bold" , color: 'red'}}>
-					{ addOnErrors}
+				<p style={{ fontWeight: "bold", color: 'red' }}>
+					{addOnErrors}
 				</p>
 				<Form onSubmit={onFormSubmit}>
 					<FormGroup>
@@ -315,7 +319,7 @@ const AddOn = props => {
 					</FormGroup>
 
 					<p style={{ color: "red", fontWeight: "bold", }}
-					   className={'text-center'}> {addOnError} </p>
+						className={'text-center'}> {addOnError} </p>
 
 					{
 						addOnArr.length > 0 ?
@@ -354,8 +358,8 @@ const AddOn = props => {
 					<p style={{ fontWeight: "bold" }}>Edit Add On</p>
 					<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleEditClose} title="Close Staff">X</p>
 				</div>
-				<p style={{fontWeight: "bold" , color: 'red'}}>
-					{ editAddOnErrors}
+				<p style={{ fontWeight: "bold", color: 'red' }}>
+					{editAddOnErrors}
 				</p>
 				<Form onSubmit={onEditFormSubmit}>
 					<FormGroup>
@@ -411,7 +415,7 @@ const AddOn = props => {
 					</FormGroup>
 
 					<p style={{ color: "red", fontWeight: "bold", }}
-					   className={'text-center'}> {addOnError} </p>
+						className={'text-center'}> {addOnError} </p>
 
 					{
 						editAddOnArr.length > 0 ?
@@ -448,7 +452,7 @@ const AddOn = props => {
 		</div>
 	)
 
-	if (!submitLoader && addOn && addOn.length === 0) {
+	if (!submitLoader && addOns && addOns.length === 0) {
 		addOnTable = (
 			<div className={'text-center '}>
 				<p style={{ fontWeight: "bold" }}>No Add-On Found</p>
@@ -456,7 +460,7 @@ const AddOn = props => {
 		)
 	}
 
-	if (!submitLoader && addOn && addOn.length > 0) {
+	if (!submitLoader && addOns && addOns.length > 0) {
 		addOnTable = (
 			<>
 				<Table>
@@ -467,7 +471,7 @@ const AddOn = props => {
 							{
 								columns.map((col, index) => (
 									<TableCell key={index}
-									           style={{ fontWeight: "bold" }}
+										style={{ fontWeight: "bold" }}
 									>{col}</TableCell>
 								))
 							}
@@ -476,7 +480,8 @@ const AddOn = props => {
 					<TableBody>
 						<Fragment>
 							{
-								addOn.map((addOn, index) => {
+								addOns.map((addOn, index) => {
+									console.log(addOn)
 									return (
 										(
 											<TableRow hover key={index}>
@@ -489,12 +494,12 @@ const AddOn = props => {
 												}</TableCell>
 												<TableCell>
 													<i className="zmdi zmdi-edit mr-3"
-													   style={{ fontSize: "28px", cursor: "pointer" }}
-													   onClick={() => editModalHandler(addOn._id)}
+														style={{ fontSize: "28px", cursor: "pointer" }}
+														onClick={() => editModalHandler(addOn._id)}
 													/>
 													<i className="zmdi zmdi-delete"
-													   style={{ fontSize: "28px", cursor: "pointer", color: "red" }}
-													   onClick={() => onDeleteHandler(addOn._id)} />
+														style={{ fontSize: "28px", cursor: "pointer", color: "red" }}
+														onClick={() => onDeleteHandler(addOn._id)} />
 												</TableCell>
 											</TableRow>
 										)
@@ -517,7 +522,7 @@ const AddOn = props => {
 				<Row className={'justify-content-end'}>
 					<Col md={2} sm={12} lg={1} className="mr-1">
 						<button className={'text-center btn btn-send btn-block'}
-						        onClick={ModalOpenHandler} > Add </button>
+							onClick={ModalOpenHandler} > Add </button>
 					</Col>
 				</Row>
 				<hr />

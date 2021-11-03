@@ -29,7 +29,7 @@ let sidebarMenu = {
       },
       {
          "name": 'Add On',
-         "menu_title": "Add On",
+         "menu_title": "AddOn",
          'path': '/vendor/add-on',
          "menu_icon": "zmdi zmdi-collection-plus",
          "type_multi": null,

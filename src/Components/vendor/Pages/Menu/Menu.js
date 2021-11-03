@@ -370,7 +370,7 @@ const Menu = (props) => {
 									{error.productPrice}
 								</small>
 							</FormGroup>
-							<FormGroup>
+							{/* <FormGroup>
 								<Label>Time</Label>
 								<div className={'d-flex justify-content-around'}>
 									<Input
@@ -390,7 +390,7 @@ const Menu = (props) => {
 										onChange={onChangeHandler}
 									/>
 								</div>
-							</FormGroup>
+							</FormGroup> */}
 							<FormGroup>
 								<Label for="Select">Category</Label>
 								<AsyncSelect

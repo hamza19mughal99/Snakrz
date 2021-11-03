@@ -96,7 +96,7 @@ const Homesection = () => {
 
                                                     apiKey={process.env.REACT_APP_GOOGLE_MAP_API}
                                                     selectProps={{
-                                                        placeholder: 'Enter Location',
+                                                        placeholder: 'Enter Your Full Address',
                                                         value,
                                                         onChange: (val) => onPlaceSearch(val),
                                                     }}

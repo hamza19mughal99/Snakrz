@@ -55,7 +55,7 @@ const Settings = props => {
 
 
 			if (typeof fields.shopName !== "undefined") {
-				if (!fields.shopName.match(/^[a-zA-Z ]+$/)) {
+				if (!fields.shopName.match(/^[a-zA-Z' ]+$/)) {
 					isValid = false
 					error.shopName = "Product Name must be string"
 				}

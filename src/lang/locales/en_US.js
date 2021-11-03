@@ -8,6 +8,7 @@ module.exports = {
    "sidebar.teachers": "Teachers",
    "sidebar.orders": "orders",
    "sidebar.vendors": "Vendors",
+   "sidebar.addon": "AddOn",
    "sidebar.studentactivity": "studentActivity",
    "sidebar.activityforms": "ActivityForms",
    "sidebar.category": "Category",

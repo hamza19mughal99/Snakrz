@@ -99,7 +99,7 @@ export function VendorOrderReady(toast) {
 
 export function vendorOrderReject(toast) {
 	return toast('Order Rejected', {
-		appearance: 'danger',
+		appearance: 'success',
 		autoDismiss: true,
 
 	})
@@ -107,7 +107,7 @@ export function vendorOrderReject(toast) {
 
 export function vendorOrderSuccessful(toast) {
 	return toast('Order Completed Successfully', {
-		appearance: 'danger',
+		appearance: 'success',
 		autoDismiss: true,
 
 	})
@@ -162,8 +162,16 @@ export function addOnDeletedSuccessfully(toast) {
 }
 
 export function addOnDeletedError(toast) {
-	return toast('Add On is already selected in menu ', {
-		appearance: 'danger',
+	return toast('Add On is already selected in Menu ', {
+		appearance: 'error',
+		autoDismiss: true,
+
+	})
+}
+
+export function CategoryDeletedError(toast) {
+	return toast('Category is already selected in Menu ', {
+		appearance: 'error',
 		autoDismiss: true,
 
 	})

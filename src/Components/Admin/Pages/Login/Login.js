@@ -103,7 +103,7 @@ const Login = () => {
                                                     placeholder="Enter Your Password" />
                                             </div>
                                             <small className="text-danger">
-                                                {errors.password && errors.password}
+                                                {errors.password && errors.password.messages}
                                             </small>
                                             {
                                                 formButton

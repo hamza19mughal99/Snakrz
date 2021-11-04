@@ -24,6 +24,7 @@ import Settings from "../Components/vendor/Pages/Settings/Settings";
 import AddOn from "../Components/vendor/Pages/AddOn/AddOn"
 import Gallery from "../Components/vendor/Pages/Gallery/Gallery";
 import Category from "../Components/vendor/Pages/Category/Category";
+import Deals from "../Components/vendor/Pages/Deals/Deals";
 
 
 export const MainLayoutPath = [
@@ -103,6 +104,10 @@ export const VendorLayoutPath = [
 		path: 'settings',
 		component: Settings
 	},
+	{
+		path: 'deals',
+		component: Deals
+	}
 
 ]
 

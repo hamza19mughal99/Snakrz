@@ -26,6 +26,7 @@ const AddToCart = (props) => {
     const [btnLoader, setBtnLoader] = useState(false);
     const [orderData, setOrderData] = useState({})
     const [isApiError, setIsApiError] = useState(false)
+    const [notes, setNotes] = useState("")
     const [isMsgError, setIsMsgError] = useState(null)
 
     const token = localStorage.getItem("token")
@@ -107,7 +108,7 @@ const AddToCart = (props) => {
         stripe.createToken(cardElement).then((result) => {
             if (result.token) {
                 console.log(result.token)
-                axios.post('/order', { ...formData, token: result.token }, { headers: { "Authorization": `Bearer ${token}` } })
+                axios.post('/order', { ...formData, token: result.token, notes }, { headers: { "Authorization": `Bearer ${token}` } })
                     .then((res) => {
                         setBtnLoader(false);
                         setErrorMessage('');
@@ -171,6 +172,17 @@ const AddToCart = (props) => {
                     </div>
 
                     <Form onSubmit={createOrders}>
+
+                    <Form.Label>Additional Notes</Form.Label>
+                        <Form.Control
+                            type={'textarea'}
+                            as={'textarea'}
+                            value={notes}
+                            className={'mb-5'}
+                            onChange={(e) => setNotes(e.target.value)}
+                        />
+
+
                         <CardElement
                             options={{
                                 hidePostalCode: true,

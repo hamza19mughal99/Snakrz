@@ -301,7 +301,10 @@ const Menu = (props) => {
                                         <Row>
                                             <Col md={7}>
                                                 <div className="mt-2">
-                                                    <h5>{item.productName}</h5>
+                                                    <div className="d-flex justify-content-between">
+                                                        <h5>{item.productName}</h5>
+                                                        <p className={'text-muted'}>{item.time}</p>
+                                                    </div>
                                                     <hr />
                                                     <p className={'mt-3'}>$ {item.productPrice}.00</p>
                                                     {

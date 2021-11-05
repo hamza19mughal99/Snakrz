@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom"
 import PageTitleBar from "../../../../lib/vendor/PageTitleBar/PageTitleBar";
 import { Col, Modal, Row } from "react-bootstrap";
 import { Form, FormGroup, Input, Label } from "reactstrap";
 import * as action from "../../../../Store/vendor/actions";
 import { Controller, useForm } from "react-hook-form";
 import { confirmAlert } from 'react-confirm-alert';
+import Select from 'react-select'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { useToasts } from "react-toast-notifications";
 import { vendorMenuDelete, vendorMenuUpdated, vendorMenuCreated }
@@ -29,6 +31,8 @@ const Menu = (props) => {
 	const [addOn, setAddOn] = useState(null)
 	const [category, setCategory] = useState(null)
 	const [timeError, setTimeError] = useState(null)
+	const [categoryMsg, setCategoryMsg] = useState(null)
+	const [categoryNotSelect, setCategoryNotSelect] = useState(null)
 	let error = {}
 
 	const { addToast } = useToasts()
@@ -131,11 +135,18 @@ const Menu = (props) => {
 	}
 	handleEditValidation()
 
+	let categoryData = (
+		<div>
+			<p className="text-danger"> Please select a category or <NavLink to={'/vendor/category'}> Create new One! </NavLink> </p>
+		</div>
+	)
+
 	const onFormSubmit = (data) => {
 		console.log(data)
 		setSubmitLoader(true);
 		let hour = data.hour
 		let min = data.min
+
 		if (data.hour.length === 1) {
 			hour = `0${data.hour}`;
 		}
@@ -143,36 +154,47 @@ const Menu = (props) => {
 			min = `0${data.min}`;
 		}
 
-		if (hour > 0 && (min > 0 && min <= 60)) {
-			const formData = new FormData();
-			formData.append("productName", data.productName);
-			formData.append("productPrice", data.productPrice);
-			formData.append("productPicture", data.productPicture[0])
-			formData.append("category", data.category.value)
-			if (data.addOn) {
-				formData.append("productAddOn", JSON.stringify(data.addOn))
-			}
-			formData.append('time', `${hour}:${min}`)
-
-			axios.post('/vendor/product', formData, { headers: { "Authorization": `Bearer ${token}` } })
-				.then(() => {
-					setShow(!show)
-					setSubmitLoader(false);
-					vendorMenuCreated(addToast)
-				})
-				.catch((err) => {
-					setIsApiError(true)
-					setIsMsgError(err.message)
-					console.log("VENDOR PRODUCT POST", err)
-				})
-
-			reset({})
-		}
-
-		else {
-			setTimeError("Hour should be greater than 0 and minutes should be greater than 0 and less than 60")
+		if (data.category === undefined) {
+			setCategoryNotSelect(categoryData)
 			setSubmitLoader(false);
+		}
+		else {
 
+			if (hour >= 0 && (min > 0 && min < 60)) {
+
+				const formData = new FormData();
+				formData.append("productName", data.productName);
+				formData.append("productPrice", data.productPrice);
+				formData.append("productPicture", data.productPicture[0])
+				formData.append("category", data.category.value)
+				formData.append("menuType", data.menuType.value)
+				formData.append("allergyInfo", data.allergyInfo);
+
+				if (data.addOn) {
+					formData.append("productAddOn", JSON.stringify(data.addOn))
+				}
+				formData.append('time', `${hour}:${min}`)
+
+				axios.post('/vendor/product', formData, { headers: { "Authorization": `Bearer ${token}` } })
+					.then(() => {
+						setShow(!show)
+						setSubmitLoader(false);
+						vendorMenuCreated(addToast)
+					})
+					.catch((err) => {
+						setIsApiError(true)
+						setIsMsgError(err.message)
+						console.log("VENDOR PRODUCT POST", err)
+					})
+
+				reset({})
+			}
+
+			else {
+				setTimeError("Hour should be greater than 0 and minutes should be greater than 0 and less than 60")
+				setSubmitLoader(false);
+
+			}
 		}
 
 
@@ -190,9 +212,15 @@ const Menu = (props) => {
 		new Promise(resolve => {
 			axios.get('/vendor/category-menu', { headers: { "Authorization": `Bearer ${token}` } })
 				.then((res) => {
+					setCategoryMsg(res.data.length)
 					resolve(res.data)
 				})
 		});
+
+	const options = [
+		{ value: 'Halal', label: 'Halal' },
+		{ value: 'Haram', label: 'Haram' }
+	]
 
 	const modal = (
 		<Modal show={show} size={'lg'} className="StaffEditCard">
@@ -244,7 +272,7 @@ const Menu = (props) => {
 							/>
 						</div>
 						<small className="text-danger" style={{ fontWeight: "bold" }} >
-							{errors.hours && errors.hours.message}
+							{errors.hour && errors.hour.message}
 							{
 								timeError
 							}
@@ -254,29 +282,37 @@ const Menu = (props) => {
 
 					<FormGroup>
 						<Label for="Select">Category</Label>
-						<Controller
-							name="category"
-							rules={{ required: true }}
-							control={control}
-							render={({ field: { value, onChange, ref } }) => (
-								<AsyncSelect
-									name={'category'}
-									cacheOptions
-									defaultOptions
-									required
-									value={value}
-									onChange={onChange}
-									loadOptions={categoriesPromiseHandler}
+						{
+							categoryMsg === 0 ?
+								<p className="text-danger"> For Creating Menu first you have to create Category
+								</p>
+								:
+								<Controller
+									name="category"
+									control={control}
+									render={({ field: { value, onChange, ref } }) => (
+										<AsyncSelect
+											name={'category'}
+											cacheOptions
+											defaultOptions
+											required
+											value={value}
+											onChange={onChange}
+											loadOptions={categoriesPromiseHandler}
+										/>
+									)}
 								/>
-							)}
-						/>
+						}
+						<small className="text-danger" style={{ fontWeight: "bold" }}>
+							{categoryNotSelect}
+						</small>
+
 					</FormGroup>
 
 					<FormGroup>
 						<Label for="Select">Add On</Label>
 						<Controller
 							name="addOn"
-							// rules={{ required: true }}
 							control={control}
 							render={({ field: { value, onChange, ref } }) => (
 								<AsyncSelect
@@ -291,6 +327,41 @@ const Menu = (props) => {
 								/>
 							)}
 						/>
+					</FormGroup>
+
+
+
+					<FormGroup>
+						<Label for="Select">Menu Type</Label>
+						<Controller
+							name="menuType"
+							rules={{ required: true }}
+							control={control}
+							render={({ field: { value, onChange, ref } }) => (
+								<Select
+									name={'menuType'}
+									cacheOptions
+									required
+									defaultOptions
+									options={options}
+									value={value}
+									onChange={onChange}
+								/>
+							)}
+						/>
+					</FormGroup>
+
+					<FormGroup>
+						<Label for="name">Allergy Info</Label>
+						<Input
+							type="textarea"
+							name="allergyInfo"
+							placeholder="Allergy Info"
+							{...register('allergyInfo', MenuValidation.allergyInfo)}
+						/>
+						<small className="text-danger" style={{ fontWeight: "bold" }} >
+							{errors.allergyInfo && errors.allergyInfo.message}
+						</small>
 					</FormGroup>
 					<div className="form-group">
 						<label htmlFor="exampleFormControlFile1">Product Picture</label>
@@ -316,44 +387,53 @@ const Menu = (props) => {
 	const onEditFormSubmit = (data) => {
 		setSubmitLoader(true);
 
-
-		if (editFormData.hours >= 0 && (editFormData.mins >= 0 && editFormData.mins <= 60)) {
-
-			let hour = editFormData.hours
-			let min = editFormData.mins
-
-			if (hour.length === 1) {
-				hour = `0${editFormData.hours}`;
-			}
-			if (min.length === 1) {
-				min = `0${editFormData.mins}`;
-			}
-
-			const formData = new FormData();
-			formData.append("productName", editFormData.productName);
-			formData.append("productPrice", editFormData.productPrice);
-			formData.append("productPicture", data.productPicture[0]);
-			formData.append("currentPicture", JSON.stringify(editFormData.productPicture))
-			formData.append("category", category.value)
-			formData.append("productAddOn", JSON.stringify(addOn))
-			formData.append("time", `${hour}:${min}`)
-
-			axios.put('/vendor/product/' + staffId, formData, { headers: { "Authorization": `Bearer ${token}` } })
-				.then(() => {
-					setShowEdit(!showEdit)
-					setSubmitLoader(false);
-					vendorMenuUpdated(addToast)
-				})
-				.catch((err) => {
-					setIsApiError(true)
-					setIsMsgError(err.message)
-					console.log("VENDOR PRODUCT PUT", err)
-				})
-			reset({})
-		}
-		else {
-			setTimeError("Hour should be greater than 0 and minutes should be greater than 0 and less than 60")
+		if (category.value === undefined) {
+			setCategoryNotSelect(categoryData)
 			setSubmitLoader(false);
+		}
+
+		else {
+			if (editFormData.hours >= 0 && (editFormData.mins >= 0 && editFormData.mins <= 60)) {
+
+				let hour = editFormData.hours
+				let min = editFormData.mins
+
+				if (hour.length === 1) {
+					hour = `0${editFormData.hours}`;
+				}
+				if (min.length === 1) {
+					min = `0${editFormData.mins}`;
+				}
+
+				const formData = new FormData();
+				formData.append("productName", editFormData.productName);
+				formData.append("productPrice", editFormData.productPrice);
+				formData.append("productPicture", data.productPicture[0]);
+				formData.append("currentPicture", JSON.stringify(editFormData.productPicture))
+				formData.append("category", category.value)
+				formData.append("menuType", editFormData.menuType)
+				formData.append("allergyInfo", editFormData.allergyInfo);
+				formData.append("productAddOn", JSON.stringify(addOn))
+				formData.append("time", `${hour}:${min}`)
+
+				axios.put('/vendor/product/' + staffId, formData, { headers: { "Authorization": `Bearer ${token}` } })
+					.then(() => {
+						setShowEdit(!showEdit)
+						setSubmitLoader(false);
+						vendorMenuUpdated(addToast)
+					})
+					.catch((err) => {
+						setIsApiError(true)
+						setIsMsgError(err.message)
+						console.log("VENDOR PRODUCT PUT", err)
+					})
+				reset({})
+			}
+			else {
+				setTimeError("Hour should be greater than 0 and minutes should be greater than 0 and less than 60")
+				setSubmitLoader(false);
+			}
+
 		}
 
 
@@ -374,6 +454,14 @@ const Menu = (props) => {
 
 	const handleEditInputChange = (newValue) => {
 		setCategory(newValue)
+	}
+
+	const onMenuChangeHandler = (data) => {
+		console.log(data)
+		setEditFormData({
+			...editFormData,
+			menuType: data.value,
+		})
 	}
 
 	const editModal = (
@@ -430,15 +518,25 @@ const Menu = (props) => {
 							</FormGroup>
 							<FormGroup>
 								<Label for="Select">Category</Label>
-								<AsyncSelect
-									name={'category'}
-									required
-									cacheOptions
-									defaultOptions
-									value={category}
-									onChange={handleEditInputChange}
-									loadOptions={categoriesPromiseHandler}
-								/>
+								{
+									categoryMsg === 0 ?
+										<p className="text-danger">
+											For Creating Menu you have to create Category first
+										</p>
+										:
+										<AsyncSelect
+											name={'category'}
+											required
+											cacheOptions
+											defaultOptions
+											value={category}
+											onChange={handleEditInputChange}
+											loadOptions={categoriesPromiseHandler}
+										/>
+								}
+								<small>
+									{categoryNotSelect}
+								</small>
 							</FormGroup>
 							<FormGroup>
 								<Label for="Select">Add On</Label>
@@ -453,6 +551,32 @@ const Menu = (props) => {
 									loadOptions={addOnPromiseHandler}
 								/>
 							</FormGroup>
+
+
+							<FormGroup>
+								<Label for="Select">Menu Type</Label>
+								<Select
+									name={'menuType'}
+									required
+									cacheOptions
+									defaultOptions
+									value={{ label: editFormData.menuType, value: editFormData.menuType }}
+									onChange={onMenuChangeHandler}
+									options={options}
+								/>
+							</FormGroup>
+
+							<FormGroup>
+								<Label for="name">Allergy Info</Label>
+								<Input
+									type="textarea"
+									name="allergyInfo"
+									placeholder="Allergy Info"
+									value={editFormData.allergyInfo}
+									onChange={onChangeHandler}
+								/>
+							</FormGroup>
+
 							<div className="form-group">
 								<label htmlFor="exampleFormControlFile1">Product Picture</label>
 								<input type="file"
@@ -502,6 +626,7 @@ const Menu = (props) => {
 								<h3>{menu.productName}</h3>
 								<div className="d-flex justify-content-between align-items-center">
 									<p> {menu.productPrice}$ </p>
+									<p>{ menu.menuType }</p>
 									<h4>{menu.time}</h4>
 								</div>
 								<button

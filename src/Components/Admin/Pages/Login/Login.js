@@ -33,6 +33,7 @@ const Login = () => {
             setSubmitLoader(false)
 
         }).catch((err) => {
+            console.log(err.response)
             if (err.message === "Request failed with status code 500") {
                 setErrMsg('Admin Not Found')
             }

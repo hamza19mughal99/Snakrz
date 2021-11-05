@@ -28,15 +28,6 @@ let sidebarMenu = {
          "child_routes": null
       },
       {
-         "name": 'Deals',
-         "menu_title": "Deals",
-         'path': '/vendor/deals',
-         "menu_icon": "zmdi zmdi-menu",
-         "type_multi": null,
-         "new_item": true,
-         "child_routes": null
-      },
-      {
          "name": 'Add On',
          "menu_title": "AddOn",
          'path': '/vendor/add-on',

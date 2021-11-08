@@ -203,25 +203,23 @@ const Orders = (props) => {
                                             {
                                                 order.items.map((item, index) => {
                                                     return (
-                                                        <div key={index}>
-                                                            <Row>
-                                                                <Col md={8}>
-                                                                    <p >
-                                                                        {item.itemName} <span style={{ fontWeight: "bold" }} className="mr-2"> x {item.quantity}</span> {
-                                                                            item.addOn ?
-                                                                                item.addOn.map((addOnData) => (
-                                                                                    <>
-                                                                                        {addOnData.name}
-                                                                                    </>
-                                                                                ))
-                                                                                : null
-                                                                        }</p>
-                                                                </Col>
-                                                                <Col md={4}>
-                                                                    <p style={{ fontWeight: "bold" }} className={'d-flex justify-content-end'}>
-                                                                        $ {item.itemPrice * item.quantity}</p>
-                                                                </Col>
-                                                            </Row>
+                                                        <div className="d-flex justify-content-between">
+                                                            <div>
+                                                                <p >
+                                                                    {item.itemName} <span style={{ fontWeight: "bold" }} className="mr-2"> x {item.quantity}</span> {
+                                                                        item.addOn ?
+                                                                            item.addOn.map((addOnData) => (
+                                                                                <>
+                                                                                    {addOnData.name}
+                                                                                </>
+                                                                            ))
+                                                                            : null
+                                                                    }</p>
+                                                            </div>
+                                                            <div>
+                                                                <p style={{ fontWeight: "bold" }} className={'d-flex justify-content-end'}>
+                                                                    $ {item.itemPrice * item.quantity}</p>
+                                                            </div>
                                                         </div>
                                                     )
 
@@ -231,16 +229,14 @@ const Orders = (props) => {
 
                                         <hr />
 
-                                        <Row>
-                                            <Col md={8}>
+                                        <div className={'d-flex justify-content-between'}>
+                                            <div>
                                                 <h5 style={{ fontWeight: "bold" }} className="ml-2" >Total:</h5>
-                                            </Col>
-                                            <Col md={4}>
+                                            </div>
+                                            <div>
                                                 <h5 style={{ fontWeight: "bold" }} className={'mt-0 d-flex justify-content-end mr-2'}>$ {order.totalPrice} </h5>
-                                            </Col>
-
-                                        </Row>
-
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -320,25 +316,23 @@ const Orders = (props) => {
                                             {
                                                 order.items.map((item, index) => {
                                                     return (
-                                                        <div key={index}>
-                                                            <Row>
-                                                                <Col md={8}>
-                                                                    <p >
-                                                                        {item.itemName} <span style={{ fontWeight: "bold" }} className="mr-2"> x {item.quantity}</span> {
-                                                                            item.addOn ?
-                                                                                item.addOn.map((addOnData) => (
-                                                                                    <>
-                                                                                        {addOnData.name}
-                                                                                    </>
-                                                                                ))
-                                                                                : null
-                                                                        }</p>
-                                                                </Col>
-                                                                <Col md={4}>
-                                                                    <p style={{ fontWeight: "bold" }} className={'d-flex justify-content-end'}>
-                                                                        $ {item.itemPrice * item.quantity}</p>
-                                                                </Col>
-                                                            </Row>
+                                                        <div className={'d-flex justify-content-between'}>
+                                                            <div>
+                                                                <p >
+                                                                    {item.itemName} <span style={{ fontWeight: "bold" }} className="mr-2"> x {item.quantity}</span> {
+                                                                        item.addOn ?
+                                                                            item.addOn.map((addOnData) => (
+                                                                                <>
+                                                                                    {addOnData.name}
+                                                                                </>
+                                                                            ))
+                                                                            : null
+                                                                    }</p>
+                                                            </div>
+                                                            <div>
+                                                                <p style={{ fontWeight: "bold" }} className={'d-flex justify-content-end'}>
+                                                                    $ {item.itemPrice * item.quantity}</p>
+                                                            </div>
                                                         </div>
                                                     )
 
@@ -347,16 +341,14 @@ const Orders = (props) => {
                                         </div>
 
                                         <hr />
-
-                                        <Row>
-                                            <Col md={8}>
+                                        <div className={'d-flex justify-content-between'}>
+                                            <div>
                                                 <h5 style={{ fontWeight: "bold" }} className="ml-2" >Total:</h5>
-                                            </Col>
-                                            <Col md={4}>
+                                            </div>
+                                            <div>
                                                 <h5 style={{ fontWeight: "bold" }} className={'mt-0 d-flex justify-content-end mr-2'}>$ {order.totalPrice} </h5>
-                                            </Col>
-
-                                        </Row>
+                                            </div>
+                                        </div>
 
 
                                     </div>
@@ -438,26 +430,25 @@ const Orders = (props) => {
                                             {
                                                 order.items.map((item, index) => {
                                                     return (
-                                                        <div key={index}>
-                                                            <Row>
-                                                                <Col md={8}>
-                                                                    <p >
-                                                                        {item.itemName} <span style={{ fontWeight: "bold" }} className="mr-2"> x {item.quantity}</span> {
-                                                                            item.addOn ?
-                                                                                item.addOn.map((addOnData) => (
-                                                                                    <>
-                                                                                        {addOnData.name}
-                                                                                    </>
-                                                                                ))
-                                                                                : null
-                                                                        }</p>
-                                                                </Col>
-                                                                <Col md={4}>
-                                                                    <p style={{ fontWeight: "bold" }} className={'d-flex justify-content-end'}>
-                                                                        $ {item.itemPrice * item.quantity}</p>
-                                                                </Col>
-                                                            </Row>
+                                                        <div className="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>
+                                                                    {item.itemName} <span style={{ fontWeight: "bold" }} className="mr-2"> x {item.quantity}</span> {
+                                                                        item.addOn ?
+                                                                            item.addOn.map((addOnData) => (
+                                                                                <>
+                                                                                    {addOnData.name}
+                                                                                </>
+                                                                            ))
+                                                                            : null
+                                                                    }</p>
+                                                            </div>
+                                                            <div>
+                                                                <p style={{ fontWeight: "bold" }} className={'d-flex justify-content-end'}>
+                                                                    $ {item.itemPrice * item.quantity}</p>
+                                                            </div>
                                                         </div>
+
                                                     )
 
                                                 })
@@ -465,18 +456,14 @@ const Orders = (props) => {
                                         </div>
 
                                         <hr />
-
-                                        <Row>
-                                            <Col md={8}>
-                                                <h5 style={{ fontWeight: "bold" }} className="ml-2" >Total:</h5>
-                                            </Col>
-                                            <Col md={4}>
-                                                <h5 style={{ fontWeight: "bold" }} className={'mt-0 d-flex justify-content-end mr-2'}>$ {order.totalPrice} </h5>
-                                            </Col>
-
-                                        </Row>
-
-
+<div className="d-flex justify-content-between">
+    <div>
+    <h5 style={{ fontWeight: "bold" }} className="ml-2" >Total:</h5>
+    </div>
+    <div>
+    <h5 style={{ fontWeight: "bold" }} className={'mt-0 d-flex justify-content-end mr-2'}>$ {order.totalPrice} </h5>
+    </div>
+</div>
                                     </div>
                                 </div>
                             </>

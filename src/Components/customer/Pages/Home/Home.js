@@ -54,7 +54,7 @@ const Homesection = () => {
                         lng: position.coords.longitude
                     })
                 })
-            
+
         });
     }
 
@@ -102,7 +102,7 @@ const Homesection = () => {
                                                     }}
                                                 />
                                             </div>
-                                            <div className="input-group d-flex justify-content-around">
+                                            <div className=" ml-2 input-group d-flex justify-content-start">
                                                 <div>
                                                     <button type="button" className="btn btn-send btn-block" onClick={getCurrentLocation}> Get Current Location </button>
                                                 </div>
@@ -115,7 +115,7 @@ const Homesection = () => {
                                                                 </button>
                                                             )
                                                             :
-                                                            <button type="submit" disabled style={{opacity: "0.5"}} className={'btn btn-send btn-block'}> Search </button>
+                                                            <button type="submit" disabled style={{ opacity: "0.5" }} className={'btn btn-send btn-block'}> Search </button>
 
 
                                                     }

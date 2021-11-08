@@ -67,22 +67,13 @@ export const vendorAuth = (email, password, isSignUp, phoneNumber) => {
 				}
 			})
 			.catch((err) => {
-				
-				if(isSignUp){
-					if (err.request.statusText === "Not Found") {
-						dispatch(vendorAuthFail('Please check your internet connection'))
-					}
-					else if (err.request.statusText === "Internal Server Error") {
-						dispatch(vendorAuthFail('User Already Exist'))
-					}
+
+				if (isSignUp) {
+
+					dispatch(vendorAuthFail(err.response.data.message))
 				}
-				else{
-					if (err.request.statusText === "Not Found") {
-						dispatch(vendorAuthFail('Please check your internet connection'))
-					}
-					else if (err.request.statusText === "Internal Server Error") {
-						dispatch(vendorAuthFail('InValid Email or password'))
-					}
+				else {
+					dispatch(vendorAuthFail(err.response.data.message))
 				}
 			})
 	}

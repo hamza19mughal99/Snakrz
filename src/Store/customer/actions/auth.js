@@ -62,22 +62,13 @@ export const auth = (email, password, name, isSignUp, phoneNumber, location) => 
 				const redirect_Id = localStorage.getItem('redirect_to')
 				if (redirect_Id) {
 					window.location.href = '/restaurantView/' + redirect_Id
-				} else  {
+				} else {
 					window.location.href = '/'
 				}
 			})
 			.catch((err) => {
-				console.log(err.request)
-				if (err.request.statusText === "Not Found") {
-					dispatch(authFail('Please check your internet connection'))
-				}
-				else if (err.request.statusText === "Internal Server Error") {
-					dispatch(authFail('User Already Exist'))
-				}
-				else {
-					dispatch(authFail("err.response.message"))
+				dispatch(authFail(err.response.data.message))
 
-				}
 			})
 	}
 }

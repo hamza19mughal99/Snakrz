@@ -11,6 +11,14 @@
     border-top-left-radius: 5rem !important;
 }
 
+@media (max-width: 991px) {
+    .column-change{
+        flex-direction: column-reverse;
+        
+    }
+    
+}
+
 .bar-view1 {
     background-color: #ff4200;
     padding: 1px;

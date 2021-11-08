@@ -17,7 +17,7 @@ const Customers = props => {
 
 	const { addToast } = useToasts()
 
-	const columns = ['CustomerName', 'delivery method', 'MobileNumber','Price', 'Order', 'Map', 'Status', 'Actions'];
+	const columns = ['CustomerName', 'delivery method', 'MobileNumber', 'notes', 'Price', 'Order', 'Map', 'Status', 'Actions'];
 	const [show, setShow] = useState(false);
 	const [show2, setShow2] = useState(false);
 	const [orders, setOrders] = useState(null);
@@ -221,7 +221,7 @@ const Customers = props => {
 											}}>
 												#{index + 1}
 											</Col>
-											<Col md={4}>
+											<Col md={2}>
 												<span>
 													<span style={{
 														color: "#ff4200",
@@ -252,7 +252,6 @@ const Customers = props => {
 												}
 											</Col>
 										</Row>
-
 									</div>
 								</>
 							)
@@ -266,8 +265,8 @@ const Customers = props => {
 	const mapModal = (
 		<Modal show={show2} onClick={handleClose2} size={'lg'} >
 			<div className="d-flex justify-content-end">
-					<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose2} title="Close Staff">X</p>
-				</div>
+				<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose2} title="Close Staff">X</p>
+			</div>
 			<div className={'map_wrapper_setting'}>
 				<Map google={props.google}
 					initialCenter={customerLocation}
@@ -310,17 +309,20 @@ const Customers = props => {
 						<Fragment>
 							{
 								orders.map((order, index) => {
-									
-									let customerNumber, customerName, orderStatus, delivery, price;
+
+
+									let customerNumber, customerName, orderStatus, delivery, notes, price;
 
 									if (order) {
-										
+
 										customerName = order.customer.name
-						                delivery = order.delivery
+										delivery = order.delivery
 										price = order.totalPrice
 										customerNumber = order.customer.phoneNumber
 										orderStatus = order.orderStatus
+										notes = order.notes
 									}
+
 									let all; let ico1, ico2;
 									if (orderStatus === "UNDER_APPROVAL") {
 										all = <TableCell style={{ fontWeight: "900", color: "green" }} >   {orderStatus}  </TableCell>
@@ -350,10 +352,11 @@ const Customers = props => {
 									return (
 										(
 											<TableRow hover key={index}>
-												
+
 												<TableCell> {customerName} </TableCell>
-												<TableCell> {delivery === false ? "PickUp" : "Delivery" } </TableCell>
+												<TableCell> {delivery === false ? "PickUp" : "Delivery"} </TableCell>
 												<TableCell> {customerNumber} </TableCell>
+												<TableCell> {notes} </TableCell>
 												<TableCell> {price}  </TableCell>
 												<TableCell>
 													<button className={'text-center btn btn-send btn-block'}

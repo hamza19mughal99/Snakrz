@@ -217,7 +217,7 @@ const Menu = (props) => {
         };
     }
     let checkoutBtn = (
-        <div className={'disable_menu text-muted w-100  p-2'}>
+        <div className={'disable_menu text-muted w-100  p-1'}>
             <NavLink to="/addToCart">
                 <button className={'check_btn'} disabled >Go To Checkout
                     <ShoppingCartIcon style={{
@@ -246,31 +246,33 @@ const Menu = (props) => {
     }
 
     let slider = (
-        <Row >
-            <Col md={9}>
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    variant="scrollable"
-                    className={' mt-2'}
-                    scrollButtons="auto"
-                    aria-label="scrollable auto tabs example"
-                >
-                    <Tab label={'All'} {...a11yProps(0)} />
-                    {
-                        props.category && props.category.length > 0 ?
-                            props.category.map((category) => {
-                                return <Tab label={category.title} children={'hello'} {...a11yProps(category._id)} />
+        <>
+            <div className={"d-flex justify-content-center"}>
+                <div>
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        variant="scrollable"
+                        className={' mt-2'}
+                        scrollButtons="auto"
+                        aria-label="scrollable auto tabs example"
+                    >
+                        <Tab label={'All'} {...a11yProps(0)} />
+                        {
+                            props.category && props.category.length > 0 ?
+                                props.category.map((category) => {
+                                    return <Tab label={category.title} children={'hello'} {...a11yProps(category._id)} />
 
-                            }) : null
-                    }
+                                }) : null
+                        }
 
-                </Tabs>
-            </Col>
-            <Col md={3}>
-                {checkoutBtn}
-            </Col>
-        </Row>
+                    </Tabs>
+                </div>
+                <div>
+                    {checkoutBtn}
+                </div>
+            </div>
+        </>
     )
 
 
@@ -298,7 +300,7 @@ const Menu = (props) => {
                                 return (
 
                                     <Col key={item._id} md={6} className={'mt-5'}>
-                                        <Row>
+                                        <Row className="column-change shadow border-0 mr-1">
                                             <Col md={7}>
                                                 <div className="mt-2">
                                                     <div className="d-flex justify-content-between">
@@ -353,7 +355,7 @@ const Menu = (props) => {
                                             </Col>
                                             <Col md={5} >
                                                 <div className={'menu_img'}>
-                                                    <img className="pt-2" alt={'img'} style={{ width: "100%" }} src={item.productPicture.avatar} />
+                                                    <img className="pt-3" alt={'img'} style={{ width: "100%" }} src={item.productPicture.avatar} />
                                                 </div>
                                             </Col>
                                         </Row>
@@ -381,10 +383,13 @@ const Menu = (props) => {
                                             if (item.category === i._id) {
                                                 allItems = (
                                                     <Col key={item._id} md={6} className={'mt-5'}>
-                                                        <Row >
-                                                            <Col md={7}>
+                                                        <Row className="column-change shadow border-0" >
+                                                            <Col md={7} >
                                                                 <div className="mt-2">
-                                                                    <h5>{item.productName}</h5>
+                                                                    <div className="d-flex justify-content-between">
+                                                                        <h5>{item.productName}</h5>
+                                                                        <p className={'text-muted'}>{item.time}</p>
+                                                                    </div>
                                                                     <hr />
                                                                     <p className={'mt-3'}>$ {item.productPrice}.00</p>
                                                                     {
@@ -428,7 +433,7 @@ const Menu = (props) => {
                                                             </Col>
                                                             <Col md={5} >
                                                                 <div className={'menu_img'}>
-                                                                    <img className="pt-2" alt={'img'} style={{ width: "100%" }} src={item.productPicture.avatar} />
+                                                                    <img className="pt-3" alt={'img'} style={{ width: "100%" }} src={item.productPicture.avatar} />
                                                                 </div>
                                                             </Col>
                                                         </Row>

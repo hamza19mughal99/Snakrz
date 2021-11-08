@@ -33,9 +33,8 @@ const Login = () => {
             setSubmitLoader(false)
 
         }).catch((err) => {
-            console.log(err.response)
-            if (err.message === "Request failed with status code 500") {
-                setErrMsg('Admin Not Found')
+            if (err.response.data.message) {
+                setErrMsg(err.response.data.message)
             }
             else {
                 setIsApiError(true)
@@ -77,10 +76,10 @@ const Login = () => {
                                     <h2 style={{ fontWeight: "bold" }}
                                     >ADMIN
                                     </h2>
-                                    <div style={{color: "red", fontWeight: "bold"}}>
-                                    {
-                                        errMsg
-                                    }
+                                    <div style={{ color: "red", fontWeight: "bold" }}>
+                                        {
+                                            errMsg
+                                        }
                                     </div>
                                     <form onSubmit={handleSubmit(onFormSubmit)} className="mt-5">
                                         <div className="container form-row justify-content-center">

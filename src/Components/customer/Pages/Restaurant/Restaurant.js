@@ -10,7 +10,7 @@ import InfoWindowEx from "../../../../lib/customer/InfoWindow/InfoWindow";
 import './restaurant.css'
 
 const Restaurant = (props) => {
-    const [selectedLocation, setSelectedLocation] = useState( null);
+    const [selectedLocation, setSelectedLocation] = useState(null);
     const [marker, setMarker] = useState({});
     const [selectedShop, setSelectedShop] = useState(null);
     const [infoShow, setInfoShow] = useState(false);
@@ -49,31 +49,34 @@ const Restaurant = (props) => {
         )
     }
 
-    let iconColor = { color: '#ff4200'}
+    let iconColor = { color: '#ff4200' }
 
     if (props.shops && props.shops.length > 0) {
         restaurant = (
-            props.shops.map((shop) => {
-                console.log(shop)
-                return (
-                    <div className="col-md-6 col-lg-4 shop_cart mb-5">
-                        <img  src={shop.shopImage.avatar} alt={'pro-img'} />
-                        <div className="pro-head">
-                            <div>
-                                <h3 className="text-left pb-2">{shop.shopName}</h3>
-                                <FaMapMarkerAlt style={iconColor} />
-                                <span>{shop.address}</span>
-                                <hr />
+            <div className="row ">
+                {
+                    props.shops.map((shop) => {
+                        return (
+                            <div className="col-md-6 col-lg-4 shop_cart mb-5 ">
+                                <img src={shop.shopImage.avatar} alt={'pro-img'} />
+                                <div className="pro-head">
+                                    <div>
+                                        <h3 className="text-left pb-2">{shop.shopName}</h3>
+                                        <FaMapMarkerAlt style={iconColor} />
+                                        <span>{shop.address}</span>
+                                        <hr />
+                                    </div>
+                                    <NavLink to={`/restaurantView/${shop._id}`}><button className={'btn btn-visit'}>Visit</button></NavLink>
+                                </div>
                             </div>
-                            <NavLink to={`/restaurantView/${shop._id}`}><button className={'btn btn-visit'}>Visit</button></NavLink>
-                        </div>
-                    </div>
-                )
-            })
+                        )
+                    })}
+            </div>
+
         )
     }
 
-    const  onInfoWindowClose = () => {
+    const onInfoWindowClose = () => {
         setMarker(null);
         setInfoShow(false)
     };
@@ -83,8 +86,8 @@ const Restaurant = (props) => {
                 selectedLocation ?
                     <div className="map_wrapper">
                         <Map google={props.google}
-                             initialCenter={selectedLocation}
-                             zoom={14}
+                            initialCenter={selectedLocation}
+                            zoom={14}
                         >
                             {
                                 props.shops ?
@@ -118,8 +121,8 @@ const Restaurant = (props) => {
                                     >
                                         <div>
                                             <img alt={'shop'}
-                                                 src={selectedShop.shopImage.avatar}
-                                                 className={'img-fluid w-100'}
+                                                src={selectedShop.shopImage.avatar}
+                                                className={'img-fluid w-100'}
                                             />
                                             <p className={'bold p-0 m-0'} style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/restaurantView/' + selectedShop._id}>{selectedShop.shopName}</p>
                                         </div>
@@ -128,7 +131,7 @@ const Restaurant = (props) => {
                             }
                         </Map>
                     </div>
-             : null
+                    : null
             }
             <div className={'shops'} >
                 <section className="py-5 restaurant-section">
@@ -137,11 +140,9 @@ const Restaurant = (props) => {
                             <h1> All Restaurants </h1>
                             <div className={"bar-three"}></div>
                             <div className={"bar-four"}></div>
-                            <div className="row">
-                                {
-                                    restaurant
-                                }
-                            </div>
+                            {
+                                restaurant
+                            }
                         </div>
                     </div>
                 </section>

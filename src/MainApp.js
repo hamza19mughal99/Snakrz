@@ -13,6 +13,8 @@ import Login from "./Components/vendor/Pages/Login/Login";
 import CustomerLogin from './Components/customer/Pages/Login/Login'
 import CustomerRegister from './Components/customer/Pages/Register/Register'
 import Error from "./Components/404-error page/Error";
+import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import Stripe from "./Components/Stripe/Stripe";
 import { connect } from "react-redux";
 import * as action from './Store/customer/actions/index';
@@ -66,6 +68,8 @@ const MainApp = props => {
 							<Route path={'/vendor/register'} component={Register} />
 							<Route path={'/admin/login'} exact component={AdminLogin} />
 							<Route path={'/vendor/login'} exact component={Login} />
+							<Route path={'/forgetPassword'} exact component={ForgetPassword} />
+							<Route path={'/resetPassword/:id'} exact component={ResetPassword} />
 							<Route path={'/stripe'} exact component={Stripe} />
 							<Route path={'*'} component={Error} />
 						</Switch>

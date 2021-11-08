@@ -73,13 +73,14 @@ const Login = props => {
                                                 className="form-control"
                                                 placeholder="Enter Your Password" />
                                         </div>
-                                        
+
                                         <small className="text-danger">
                                             {errors.password && errors.password.message}
                                         </small>
                                         {formButton}
                                     </div>
                                 </form>
+                                <NavLink to="/forgetPassword"> <p style={{fontWeight: "bold"}}> Forget Password ? </p> </NavLink>
                                 <div className={'customer__login__bottom-02 text-center p-4'}>
                                     <p>New to Snakrs?</p>
                                     <NavLink to={'/register'}><button className={'btn btn-send btn-block'}>REGISTER NOW</button></NavLink>

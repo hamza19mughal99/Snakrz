@@ -128,6 +128,31 @@ const Menu = (props) => {
             }
         }
     }
+    const [infoShow, setInfoShow] = useState(false)
+    const [allergyText, setAllergyText] = useState(null)
+
+    const handleClose3 = () => setInfoShow(!infoShow)
+
+    const allergyInfoHandler = (item) => {
+        setAllergyText(item.allergyInfo)
+        console.log(item)
+        setInfoShow(!infoShow)
+    }
+
+    const alleryModal = (
+        <Modal show={infoShow}>
+            <Modal.Body>
+                <div className="d-flex justify-content-between align-items-center">
+                    <h4 style={{ fontWeight: "bold" }}>Allergy Information</h4>
+                    <p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose3} title="Close Staff">X</p>
+                </div>
+
+                <div>
+                    <p>{allergyText}</p>
+                </div>
+            </Modal.Body>
+        </Modal>
+    )
 
     const addOnModal = (
         <Modal show={showAddOnModal} size={'md'} className={'h-100 w-100'}>
@@ -247,14 +272,15 @@ const Menu = (props) => {
 
     let slider = (
         <>
-            <div className={"d-flex justify-content-center"}>
-                <div>
+            <div className={"d-flex flex-wrap"}>
+                <Box sx={{ maxWidth: 300, bgcolor: 'background.paper' }}>
                     <Tabs
                         value={value}
                         onChange={handleChange}
                         variant="scrollable"
                         className={' mt-2'}
                         scrollButtons="auto"
+                        allowScrollButtonsMobile
                         aria-label="scrollable auto tabs example"
                     >
                         <Tab label={'All'} {...a11yProps(0)} />
@@ -267,7 +293,7 @@ const Menu = (props) => {
                         }
 
                     </Tabs>
-                </div>
+                </Box>
                 <div>
                     {checkoutBtn}
                 </div>
@@ -281,6 +307,7 @@ const Menu = (props) => {
         <>
             {myModal}
             {addOnModal}
+            {alleryModal}
             <Paper elevation={4}>
                 {slider}
 
@@ -305,52 +332,67 @@ const Menu = (props) => {
                                                 <div className="mt-2">
                                                     <div className="d-flex justify-content-between">
                                                         <h5>{item.productName}</h5>
-                                                        <p className={'text-muted'}>{item.time}</p>
+                                                        <p style={{ backgroundColor: "#fafafa" }} > {item.menuType ? item.menuType : null} </p>
+                                                        <p style={{ backgroundColor: "#fafafa" }}>{item.time}</p>
+
                                                     </div>
                                                     <hr />
                                                     <p className={'mt-3'}>$ {item.productPrice}.00</p>
-                                                    {
-                                                        props.isOrdered ?
-                                                            check ?
-                                                                <button
-                                                                    className={'btn-send '}
-                                                                    style={{
-                                                                        opacity: 0.4
-                                                                    }}
-                                                                    disabled
-                                                                >ADD TO CART</button>
-                                                                : (
-                                                                    item.addOn.length > 0 ?
-                                                                        token ? <button
-                                                                            className={' btn-send '}
-                                                                            onClick={() => AddOnModalHandler(item.addOn, item)}
+                                                    <div className={'d-flex'}>
+                                                        <div>
+                                                            {
+                                                                props.isOrdered ?
+                                                                    check ?
+                                                                        <button
+                                                                            className={'btn-send '}
+                                                                            style={{
+                                                                                opacity: 0.4
+                                                                            }}
+                                                                            disabled
                                                                         >ADD TO CART</button>
-                                                                            :
-                                                                            <button className={' btn-send '} onClick={modalOpenHandler}>
-                                                                                ADD TO CART
-                                                                            </button>
-                                                                        :
-                                                                        token ? <button
-                                                                            onClick={() => dispatch({
-                                                                                type: 'ADD_TO_CART',
-                                                                                id: item._id,
-                                                                                cartData: item
-                                                                            })}
-                                                                            className={' btn-send '}
-                                                                        >ADD TO CART</button>
-                                                                            :
-                                                                            <button className={' btn-send '} onClick={modalOpenHandler}>
-                                                                                ADD TO CART
-                                                                            </button>
-                                                                )
-                                                            : <button
-                                                                className={'btn-send '}
-                                                                style={{
-                                                                    opacity: 0.4
-                                                                }}
-                                                                disabled
-                                                            >ADD TO CART</button>
-                                                    }
+                                                                        : (
+                                                                            item.addOn.length > 0 ?
+                                                                                token ? <button
+                                                                                    className={' btn-send '}
+                                                                                    onClick={() => AddOnModalHandler(item.addOn, item)}
+                                                                                >ADD TO CART</button>
+                                                                                    :
+                                                                                    <button className={' btn-send '} onClick={modalOpenHandler}>
+                                                                                        ADD TO CART
+                                                                                    </button>
+                                                                                :
+                                                                                token ? <button
+                                                                                    onClick={() => dispatch({
+                                                                                        type: 'ADD_TO_CART',
+                                                                                        id: item._id,
+                                                                                        cartData: item
+                                                                                    })}
+                                                                                    className={' btn-send '}
+                                                                                >ADD TO CART</button>
+                                                                                    :
+                                                                                    <button className={' btn-send '} onClick={modalOpenHandler}>
+                                                                                        ADD TO CART
+                                                                                    </button>
+                                                                        )
+                                                                    : <button
+                                                                        className={'btn-send '}
+                                                                        style={{
+                                                                            opacity: 0.4
+                                                                        }}
+                                                                        disabled
+                                                                    >ADD TO CART</button>
+                                                            }
+                                                        </div>
+
+                                                        <div>
+                                                            <button onClick={() => allergyInfoHandler(item)} className={' btn-send ml-2'}>
+                                                                ALLERGY INFO.
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
+
+
                                                 </div>
                                             </Col>
                                             <Col md={5} >
@@ -372,6 +414,7 @@ const Menu = (props) => {
                                 <Row>
                                     {
                                         props.products && props.products.map((item) => {
+                                            console.log(item)
                                             let check = false;
                                             if (cart) {
                                                 check = cart.find(
@@ -388,7 +431,8 @@ const Menu = (props) => {
                                                                 <div className="mt-2">
                                                                     <div className="d-flex justify-content-between">
                                                                         <h5>{item.productName}</h5>
-                                                                        <p className={'text-muted'}>{item.time}</p>
+                                                                        <p style={{ backgroundColor: "#fafafa" }}> {item.menuType} </p>
+                                                                        <p style={{ backgroundColor: "#fafafa" }}>{item.time}</p>
                                                                     </div>
                                                                     <hr />
                                                                     <p className={'mt-3'}>$ {item.productPrice}.00</p>
@@ -429,6 +473,9 @@ const Menu = (props) => {
                                                                             >ADD TO CART</button>
 
                                                                     }
+                                                                    <button onClick={() => allergyInfoHandler(item)} className={' btn-send ml-2'}>
+                                                                        ALLERGY INFO.
+                                                                    </button>
                                                                 </div>
                                                             </Col>
                                                             <Col md={5} >

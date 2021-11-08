@@ -11,7 +11,7 @@ require('dotenv').config()
 
 // axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.baseURL = 'https://snacker2104.herokuapp.com/';
-// axios.defaults.baseURL = 'http://192.168.50.85:4000/';
+// axios.defaults.baseURL = 'http://192.168.50.44:4000/';
 
 const stripePromise = loadStripe('pk_test_51Jf2S5J72cD9rZjsqXgTSXo0B7RlFqz1nxWg5i3YER9kEIHSCAZn3kBwcChQlujCIjhvcgzNKJTG5krOQ4gBQBkg00KHeolpk1');
 

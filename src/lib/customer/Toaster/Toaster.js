@@ -177,3 +177,11 @@ export function CategoryDeletedError(toast) {
 	})
 }
 
+export function RecoveryPassword(toast) {
+	return toast('recovery email sent Successfully', {
+		appearance: 'success',
+		autoDismiss: true,
+
+	})
+}
+

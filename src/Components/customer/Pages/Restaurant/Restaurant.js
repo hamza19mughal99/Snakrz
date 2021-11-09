@@ -7,6 +7,7 @@ import { fetchShops } from "../../../../Store/customer/actions/index";
 import Loader from "../../../../lib/customer/Loader/Loader";
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import InfoWindowEx from "../../../../lib/customer/InfoWindow/InfoWindow";
+import RatingStar from "../../../../lib/customer/RatingStar/RatingStar";
 import './restaurant.css'
 
 const Restaurant = (props) => {
@@ -50,7 +51,7 @@ const Restaurant = (props) => {
     }
 
     let iconColor = { color: '#ff4200' }
-
+    // parseInt(shop.avgRating)
     if (props.shops && props.shops.length > 0) {
         restaurant = (
             <div className="row ">
@@ -61,7 +62,8 @@ const Restaurant = (props) => {
                                 <img src={shop.shopImage.avatar} alt={'pro-img'} />
                                 <div className="pro-head">
                                     <div>
-                                        <h3 className="text-left pb-2">{shop.shopName}</h3>
+                                        <h3 className="text-left">{shop.shopName}</h3>
+                                        <RatingStar />
                                         <FaMapMarkerAlt style={iconColor} />
                                         <span>{shop.address}</span>
                                         <hr />

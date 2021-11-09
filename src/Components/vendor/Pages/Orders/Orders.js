@@ -186,7 +186,7 @@ const Customers = props => {
 	}
 
 	const handleClose = () => setShow(false);
-	const handleClose2 = () => setShow(false)
+	const handleClose2 = () => setShow2(false)
 
 	const ModalOpenHandler = (order) => {
 		setProducts(order.items)
@@ -263,10 +263,14 @@ const Customers = props => {
 	)
 
 	const mapModal = (
-		<Modal show={show2} onClick={handleClose2} size={'lg'} >
-			<div className="d-flex justify-content-end">
-				<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose2} title="Close Staff">X</p>
-			</div>
+		<Modal show={show2} size={'lg'} >
+			<Modal.Body>
+				<div className="d-flex justify-content-between align-items-center">
+					<h1>Map</h1>
+					<p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose2} title="Close Staff">X</p>
+				</div>
+			</Modal.Body>
+
 			<div className={'map_wrapper_setting'}>
 				<Map google={props.google}
 					initialCenter={customerLocation}

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./order.css";
 import axios from "axios";
-import { Modal, Row, Col } from "react-bootstrap";
+import { Modal, Row, Col, Button, ModalBody, Form } from "react-bootstrap";
+import {ReviewSentSuccessfully} from "../../../../../lib/customer/Toaster/Toaster";
+import { useToasts } from "react-toast-notifications";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import Loader from "../../../../../lib/customer/Loader/Loader";
 import ApiError from "../../../../../lib/ApiError/ApiError"
+import ReactStars from "react-rating-stars-component";
 import Countdown from 'react-countdown';
 const Orders = (props) => {
+
+    const { addToast } = useToasts()
 
     const addUpHour = (orders) => {
 
@@ -54,12 +59,17 @@ const Orders = (props) => {
     const [isMsgError, setIsMsgError] = useState(null)
     const [show, setShow] = useState(false)
     const [currentLocation, setCurrentLocation] = useState(null)
-    const token = localStorage.getItem('token');
+    const [orderId, setOrderId] = useState(null)
+    const [customerName, setCustomerName] = useState('');
+    const [submitLoader, setSubmitLoader] = useState(false);
+    const [comment, setComment] = useState("")
+    const [shopId, setShopId] = useState("");
+    const [starRating, setStarRating] = useState(1)
+    const [error, setError] = useState(false)
+    const [show2, setShow2] = useState(false)
+    const [doneReview, setDoneReview] = useState(false)
 
-    const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         axios.get('/pending-orders', { headers: { "Authorization": `Bearer ${token}` } })
@@ -104,6 +114,107 @@ const Orders = (props) => {
             </div>
         )
     }
+
+    // -------------------------reviews--------------------------
+
+    const ReviewModalHandler = (myOrder) => {
+
+        setShow2(true);
+        setCustomerName(myOrder.customer);
+        setOrderId(myOrder._id);
+        setShopId(myOrder.shop._id)
+    }
+
+    const handleModalForm = (e) => {
+        setSubmitLoader(true)
+        e.preventDefault()
+        if (comment === "") {
+            setError(true)
+        }
+        axios.post("review/" + orderId, {
+            "customerName": customerName,
+            "rating": starRating,
+            "comment": comment,
+            "shop": shopId
+        }).then((res) => {
+            setSubmitLoader(false)
+            setShow(false)
+            ReviewSentSuccessfully(addToast)
+            // setDoneReview(true)
+        }).catch((err) => {
+            console.log(err.message)
+            setSubmitLoader(false)
+        })
+    }
+
+    let errorMessage;
+
+    if (error) {
+        errorMessage = (
+            <small style={{ color: "red" }}>
+                Must Fill Comment
+            </small>
+        )
+    }
+
+
+    let btn;
+    if (submitLoader) {
+        btn = (
+            <Loader style={'text-center'} />
+        )
+
+    } else {
+        btn = <div className="text-center">
+            <button type="submit" className="btn-send w-50" >Submit</button>
+        </div>
+    }
+
+    const handleClose2 = () => setShow2(false);
+
+
+
+    const reviewModal = (
+        <Modal show={show2} size={'lg'} id={'service__modal'}>
+            <Modal.Header>
+                <Modal.Title className={'uppercase white bold'}>Reviews</Modal.Title>
+                <Modal.Title style={{ cursor: "pointer" }} className={'uppercase white bold'} onClick={handleClose2} >X</Modal.Title>
+            </Modal.Header>
+            <ModalBody className={'px-5'}>
+                <Row className={'mt-4'}>
+                    <Col className={'appointment__model'}>
+                        <h3 className={'text-center '}>Write a Review</h3>
+                    </Col>
+                </Row>
+                <Form onSubmit={handleModalForm}>
+                    <div className="text-center d-flex justify-content-center">
+                        <ReactStars
+                            count={5}
+                            value={starRating}
+                            required
+                            half={true}
+                            size={24}
+                            activeColor="#ff4200"
+                            onChange={(val) => setStarRating(val)}
+                        />
+                    </div>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        <Form.Label className={'comment-head'} >COMMENTS</Form.Label>
+                        <Form.Control as="textarea" rows={3} className={'comment'} value={comment} onChange={(e) => setComment(e.target.value)} />
+                    </Form.Group>
+                    {errorMessage}
+
+                    {btn}
+                </Form>
+            </ModalBody>
+        </Modal>
+    )
+
+
+    // ------------------------reviews----------------------------
+
+
+
 
     const handleClose = () => setShow(false);
 
@@ -303,7 +414,9 @@ const Orders = (props) => {
                                                                                 <a onClick={() => ModalHandler(order)} >View Map</a>
                                                                                 <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> <Countdown date={Date.now() + order.totalTime} /></p>
                                                                             </div>
-                                                                            : null
+                                                                            :
+                                                                            // doneReview ? null :
+                                                                                <p onClick={() => ReviewModalHandler(order)} style={{ fontWeight: "bold", color: "#fff", cursor: "pointer" }}>Give Review</p>
                                                                     }
                                                                 </div>
                                                             </div>
@@ -456,14 +569,14 @@ const Orders = (props) => {
                                         </div>
 
                                         <hr />
-<div className="d-flex justify-content-between">
-    <div>
-    <h5 style={{ fontWeight: "bold" }} className="ml-2" >Total:</h5>
-    </div>
-    <div>
-    <h5 style={{ fontWeight: "bold" }} className={'mt-0 d-flex justify-content-end mr-2'}>$ {order.totalPrice} </h5>
-    </div>
-</div>
+                                        <div className="d-flex justify-content-between">
+                                            <div>
+                                                <h5 style={{ fontWeight: "bold" }} className="ml-2" >Total:</h5>
+                                            </div>
+                                            <div>
+                                                <h5 style={{ fontWeight: "bold" }} className={'mt-0 d-flex justify-content-end mr-2'}>$ {order.totalPrice} </h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </>
@@ -478,6 +591,7 @@ const Orders = (props) => {
     return (
         <>
             {modal}
+            {reviewModal}
             <ApiError show={isApiError} error={isMsgError} />
             <div className={'container'}>
                 <h2 style={{ fontWeight: "bold" }}>Active Orders</h2>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import '../Components/customer/Pages/Login/Login.css';
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { RecoveryPassword } from "../../lib/customer/Toaster/Toaster";
+import { RecoveryPassword, forgetPassword } from "../../lib/customer/Toaster/Toaster";
 import Loader from "../../lib/customer/Loader/Loader";
 import axios from "axios";
 import inputValidation from "../customer/Pages/Register/inputValidation";
@@ -28,6 +28,7 @@ const ForgetPassword = props => {
                 console.log(res.data);
             }).catch((err) => {
                 setLoading(false)
+               forgetPassword(addToast, err.response.data.message)
                 setError(err.response.data.message)
             })
     }

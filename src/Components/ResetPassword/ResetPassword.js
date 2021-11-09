@@ -1,8 +1,7 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import inputValidation from "../customer/Pages/Register/inputValidation";
-
 import Loader from "../../lib/customer/Loader/Loader";
 import axios from "axios";
 import Paper from '@material-ui/core/Paper';
@@ -10,6 +9,8 @@ import Paper from '@material-ui/core/Paper';
 const ResetPassword = props => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
+
+
 
 	const { register, handleSubmit, formState: { errors }, control } = useForm();
 
@@ -23,15 +24,15 @@ const ResetPassword = props => {
 			setLoading(false)
 
 		} else {
-			axios.put(`reset-password/${token}`, {password: data.newPassword})
+			axios.put(`reset-password/${token}`, { password: data.newPassword })
 				.then((res) => {
 					window.location.href = '/'
 				}).catch((err) => {
-				setLoading(false)
-				if(err.response.data.message === 'jwt expired') {
-					setError('Session Expired')
-				}
-			})
+					setLoading(false)
+					if (err.response.data.message === 'jwt expired') {
+						setError('Session Expired')
+					}
+				})
 		}
 
 
@@ -40,25 +41,25 @@ const ResetPassword = props => {
 
 
 
-	useEffect(()=> {
+	useEffect(() => {
 		axios.get(`/authenticate/${token}`)
 			.then((res) => {
-				if(!res.data.authenticate){
+				if (!res.data.authenticate) {
 					window.location.href = '/'
 				}
 			})
-	},[])
+	}, [])
 
 	let formButton = (
 		<>
 			<div className="text-center">
-				<Button type={'submit'} className="header__btn login__submit w-25 mt-2">Reset</Button>
+				<button type={'submit'} className={'btn-send w-75'} >Reset</button>
 			</div>
 		</>
 	)
 
 	if (loading) {
-		formButton = <Loader  />
+		formButton = <Loader />
 	}
 	let errorMessage = null;
 
@@ -73,20 +74,17 @@ const ResetPassword = props => {
 			<small className="text-center" style={{ fontSize: "16px" }}>
 				{errorMessage}
 			</small>
-			<div style={{height: "80vh"}} className=" info row align-items-center justify-content-center mt-5">
+			<div style={{ height: "80vh" }} className=" info row align-items-center justify-content-center mt-5">
 				<div className="col-lg-5">
 					<Paper elevation={3} className="px-3 py-3">
-						<p>Password</p>
+						<h5 style={{ textAlign: "center", fontWeight: "bold" }} >Password</h5>
 						<small className="text-danger" style={{ fontSize: "10px" }}>
 							{errors.oldPassword && errors.oldPassword.message}
 						</small>
 						<div className="input-group mb-2">
 							<Form.Control type={'password'}
-							              placeholder={'New Password'}
-							              {...register('newPassword', inputValidation.newPassword)} className={'detail__input__login_customer py-4'} />
-							<div className="input-group-append">
-								<i className="zmdi zmdi-key input-group-text input__prepend__login_customer" />
-							</div>
+								placeholder={'New Password'}
+								{...register('newPassword', inputValidation.newPassword)} className={'recovery__email py-4'} />
 						</div>
 						<small className="text-danger" style={{ fontSize: "10px" }}>
 							{errors.newPassword && errors.newPassword.message}
@@ -96,11 +94,9 @@ const ResetPassword = props => {
 								type={'password'}
 								placeholder={'Confirm Password'}
 								{...register('confirmPassword', inputValidation.confirmNewPassword)}
-								className={'detail__input__login_customer py-4'}
+								className={'recovery__email py-4'}
 							/>
-							<div className="input-group-append">
-								<i className="zmdi zmdi-key input-group-text input__prepend__login_customer" />
-							</div>
+
 						</div>
 						<small className="text-danger" style={{ fontSize: "10px" }}>
 							{errors.confirmPassword && errors.confirmPassword.message}

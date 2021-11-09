@@ -38,14 +38,14 @@ const Nav = (props) => {
     if (!adminToken && isProfileSetup && props.isVendorAuth === "false") {
         authBtn = (
             <>
-                <NavLink to={'/login'}><button style={{ fontWeight: "bold" }} className={'btn btn-main'}> Sign In </button> </NavLink>
+                <NavLink to={'/login'}><button style={{ fontWeight: "bold" }} className={'btn btn-main'}> Customer login/signup </button> </NavLink>
             </>
         )
     }
     else if (!props.isVendorAuth && !adminToken) {
         authBtn = (
             <>
-                <NavLink to={'/login'}> <button style={{ fontWeight: "bold" }} className={'btn btn-main'}>  Sign In  </button></NavLink>
+                <NavLink to={'/login'}> <button style={{ fontWeight: "bold" }} className={'btn btn-main'}>  Customer login/signup </button></NavLink>
             </>
         )
     }
@@ -56,7 +56,7 @@ const Nav = (props) => {
     if (!props.isAuth) {
         if (!props.isVendorAuth && !adminToken) {
             vendorAuthBtnDash = (
-                <NavLink to={'/vendor/login'}> <button style={{ fontWeight: "bold" }} className={'btn btn-main'}> Become a partner </button> </NavLink>
+                <NavLink to={'/vendor/login'}> <button style={{ fontWeight: "bold" }} className={'btn btn-main'}> Partner login/signup </button> </NavLink>
             )
         } else if (adminToken) {
             vendorAuthBtnDash = (

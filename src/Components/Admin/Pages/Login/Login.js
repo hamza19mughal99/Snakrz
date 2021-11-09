@@ -89,7 +89,7 @@ const Login = () => {
                                                 <input type="text"
                                                     {...register('email', inputValidation.email)}
                                                     className="form-control"
-                                                    placeholder="Enter Your Email Address" />
+                                                    placeholder="affaq@admin.com" />
                                             </div>
                                             <small className="text-danger">
                                                 {errors.email && errors.email.message}
@@ -100,7 +100,7 @@ const Login = () => {
                                                 <input type="password"
                                                     {...register('password', inputValidation.password)}
                                                     className="form-control"
-                                                    placeholder="Enter Your Password" />
+                                                    placeholder="min 8 characters" />
                                             </div>
                                             <small className="text-danger">
                                                 {errors.password && errors.password.messages}

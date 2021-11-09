@@ -22,6 +22,7 @@ import Customers from "../Components/vendor/Pages/Orders/Orders";
 import Menu from "../Components/vendor/Pages/Menu/Menu";
 import Settings from "../Components/vendor/Pages/Settings/Settings";
 import AddOn from "../Components/vendor/Pages/AddOn/AddOn"
+import Reviews from "../Components/vendor/Pages/Review/Review"
 import Gallery from "../Components/vendor/Pages/Gallery/Gallery";
 import Category from "../Components/vendor/Pages/Category/Category";
 
@@ -93,6 +94,10 @@ export const VendorLayoutPath = [
 	{
 		path: 'category',
 		component: Category
+	},
+	{
+		path: 'reviews',
+		component: Reviews
 	},
 	{
 		path: 'add-on',

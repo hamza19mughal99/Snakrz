@@ -47,6 +47,15 @@ let sidebarMenu = {
          "child_routes": null
       },
       {
+         "name": 'Reviews',
+         "menu_title": "Reviews",
+         'path': '/vendor/reviews',
+         "menu_icon": "zmdi zmdi-collection-plus",
+         "type_multi": null,
+         "new_item": true,
+         "child_routes": null
+      },
+      {
          "name": 'Gallery',
          "menu_title": "Gallery",
          'path': '/vendor/gallery',

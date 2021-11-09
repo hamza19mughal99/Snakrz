@@ -73,7 +73,7 @@ export const vendorAuth = (email, password, isSignUp, phoneNumber) => {
 					dispatch(vendorAuthFail(err.response.data.message))
 				}
 				else {
-					dispatch(vendorAuthFail("Please Check Internet Connection"))
+					dispatch(vendorAuthFail(err.response.data.message))
 				}
 			})
 	}

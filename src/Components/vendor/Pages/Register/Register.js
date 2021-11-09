@@ -67,7 +67,7 @@ const Register = (props) => {
                                                 <input type="text"
                                                     className={"form-control"}
                                                     {...register('email', inputValidation.email)}
-                                                    placeholder="Enter your Email Address" />
+                                                    placeholder="affaq@designhenge.co" />
                                             </div>
                                             <small className="text-danger">
                                                 {errors.email && errors.email.message}
@@ -78,7 +78,7 @@ const Register = (props) => {
                                                 <input type="number"
                                                     className="form-control"
                                                     {...register('phoneNumber', inputValidation.phoneNumber)}
-                                                    placeholder="Enter Your Phone Number " />
+                                                    placeholder="+447700900077" />
                                             </div>
                                             <small className="text-danger">
                                                 {errors.phoneNumber && errors.phoneNumber.message}
@@ -89,7 +89,7 @@ const Register = (props) => {
                                                 <input type="password"
                                                     className="form-control"
                                                     {...register('password', inputValidation.password)}
-                                                    placeholder="Enter Your Password" />
+                                                    placeholder="min 8 characters" />
                                             </div>
                                             <small className="text-danger">
                                                 {errors.password && errors.password.message}

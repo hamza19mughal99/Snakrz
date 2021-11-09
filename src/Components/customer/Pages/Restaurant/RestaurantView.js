@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import * as actions from '../../../../Store/customer/actions/index';
 import Menu from "./Menu";
 import axios from "axios";
+import { Row, Col, Modal } from "react-bootstrap";
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import RatingStar from "../../../../lib/customer/RatingStar/RatingStar";
 import ApiError from "../../../../lib/ApiError/ApiError"
 import Loader from "../../../../lib/customer/Loader/Loader";
 
@@ -16,23 +18,32 @@ const RestaurantView = (props) => {
     const [isMsgError, setIsMsgError] = useState(null)
     const [category, setCategory] = useState([])
     const [isOrdered, setIsOrdered] = useState(false)
+    const [allReviews, setAllReviews] = useState(false)
 
     const customerToken = localStorage.getItem('token')
     console.log(customerToken)
     useEffect(() => {
 
+        // axios.get('/reviews/' ,{ headers: { "Authorization": `Bearer ${customerToken}` } } )
+        // .then((res) => {
+        //     setAllReviews(res.data)
+
+
+        // })
+
         if (localStorage.getItem('redirect_to')) {
             localStorage.removeItem(localStorage.getItem('redirect_to'))
         }
-        if(customerToken){
-        axios.get('/already-ordered/' + storeId, { headers: { "Authorization": `Bearer ${customerToken}` } })
-            .then((res) => {
-                console.log(res.data)
-                setIsOrdered(res.data.isOrdered)
-            })}
-            else{
-                setIsOrdered(true)
-            }
+        if (customerToken) {
+            axios.get('/already-ordered/' + storeId, { headers: { "Authorization": `Bearer ${customerToken}` } })
+                .then((res) => {
+                    console.log(res.data)
+                    setIsOrdered(res.data.isOrdered)
+                })
+        }
+        else {
+            setIsOrdered(true)
+        }
         props.getShop(storeId);
         console.log(props.shop)
         axios.get(`/shop/${storeId}`)
@@ -76,8 +87,64 @@ const RestaurantView = (props) => {
         </div>
     )
 
-    if (!props.loading && props.shop && props.shop.shopBannerImage) {
+    const AllReviews = [
+        {
+            name: "Hamza",
+            ratingDesc: "very delicious"
+        },
+        {
+            name: "Ahmed",
+            ratingDesc: "very delicious"
+        },
+        {
+            name: "Mughal",
+            ratingDesc: "very delicious"
+        }
 
+    ]
+
+
+
+    const [show, setShow] = useState(false)
+
+    const reviewModalHandler = () => {
+        setShow(!show)
+    }
+    const handleClose = () => setShow(!show);
+
+    const modal = (
+        <Modal show={show} size={'lg'} className={'h-100 w-100'}>
+            <Modal.Body>
+                <div className="d-flex justify-content-between align-items-center">
+                    <p style={{ fontSize: "20px" }}> Reviews </p>
+                    <p style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleClose} title="Close Staff">X</p>
+                </div>
+                <hr />
+                {
+                    AllReviews.map((reviews) => (
+                        <>
+                            <div className={'container'}>
+                                <div className="d-flex  justify-content-between">
+                                    <div>
+                                        <p>{reviews.name}</p>
+                                    </div>
+                                    <div>
+                                        <RatingStar />
+                                    </div>
+                                </div>
+                                <p>{reviews.ratingDesc}</p>
+                            </div>
+                            <hr />
+                        </>
+                    ))
+                }
+
+            </Modal.Body>
+        </Modal>
+    )
+
+    if (!props.loading && props.shop && props.shop.shopBannerImage) {
+    // parseInt(shop.avgRating)
         RestaurantView = (
             <div className={'container w-100 shadow res_div'}>
                 <img className={'res-img'} src={props.shop.shopBannerImage.avatar} alt="img" />
@@ -85,6 +152,14 @@ const RestaurantView = (props) => {
                     <h3 style={{ fontWeight: "700" }}> {props.shop.shopName} </h3>
                     <div className="bar-view1"></div>
                     <div className="bar-view2"></div>
+                </div>
+                <div className={'d-flex'}>
+                    <div>
+                        <RatingStar />
+                    </div>
+                    <div className={'ml-2 mt-1 review-tag'}>
+                        <p onClick={reviewModalHandler}> Check Reviews </p>
+                    </div>
                 </div>
                 <div className={'d-flex'}>
                     <div >
@@ -105,6 +180,7 @@ const RestaurantView = (props) => {
     }
     return (
         <>
+            {modal}
             <ApiError show={isApiError} error={isMsgError} />
             {RestaurantView}
         </>

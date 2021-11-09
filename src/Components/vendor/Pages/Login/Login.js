@@ -70,7 +70,7 @@ const Login = props => {
                                                 type="text"
                                                 {...register('email', inputValidation.email)}
                                                 className="form-control"
-                                                placeholder="Enter Your Email Address" />
+                                                placeholder="affaq@designhenge.co" />
                                         </div>
                                         <small className="text-danger">
                                             {errors.email && errors.email.message}
@@ -82,7 +82,7 @@ const Login = props => {
                                                 type="password"
                                                 {...register('password', inputValidation.password)}
                                                 className="form-control"
-                                                placeholder="Enter Your Password" />
+                                                placeholder="min 8 characters" />
                                         </div>
                                         <small className="text-danger">
                                             {errors.password && errors.password.message}
@@ -90,6 +90,7 @@ const Login = props => {
                                         {formButton}
                                     </div>
                                 </Form>
+                                <NavLink to="/forgetPassword"> <p style={{ fontWeight: "bold" }}> Forget Password ? </p> </NavLink>
                                 <div className={'customer__login__bottom-02 text-center p-4'}>
                                     <p>Don't have account?</p>
                                     <NavLink to="/vendor/register"><button className="btn btn-send btn-block">REGISTER NOW</button> </NavLink>

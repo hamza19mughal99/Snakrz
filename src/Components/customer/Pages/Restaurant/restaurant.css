@@ -19,6 +19,14 @@
     
 }
 
+.review-tag{
+    cursor: pointer !important;
+}
+
+.review-tag p:hover{
+    color: #ff4200 !important;
+}
+
 .bar-view1 {
     background-color: #ff4200;
     padding: 1px;

@@ -185,3 +185,26 @@ export function RecoveryPassword(toast) {
 	})
 }
 
+export function forgetPassword(toast, text) {
+	return toast(text, {
+		appearance: 'error',
+		autoDismiss: true,
+
+	})
+}
+
+export function ReviewSentSuccessfully(toast) {
+	return toast("Review Sent Successfully", {
+		appearance: 'success',
+		autoDismiss: true,
+
+	})
+}
+
+export function PasswordChangeSuccessfully(toast) {
+	return toast("Password Change Successfully", {
+		appearance: 'success',
+		autoDismiss: true,
+
+	})
+}

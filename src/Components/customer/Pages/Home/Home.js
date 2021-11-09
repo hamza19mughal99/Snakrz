@@ -67,7 +67,7 @@ const Homesection = () => {
                         <div className="row">
                             <div className="col-md-12 text-center">
                                 <div className="heading-text">
-                                    <h1>Discover the best food & drinks in London, UK</h1>
+                                    <h1>Discover the best food & drinks in UK.</h1>
                                 </div>
                             </div>
                         </div>

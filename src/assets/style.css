@@ -95,6 +95,22 @@ h3.section-title {
    z-index: 999;
 }
 
+
+
+.form-control::placeholder{
+   color: #C0C0C0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
 #navBar .custom-nav-link,
 #navBar .custom-nav-link-2 {
    color: #ff4200 !important;
@@ -301,6 +317,7 @@ h3.section-title {
    color: #fff;
    font-size: 16px;
 }
+
 
 
 

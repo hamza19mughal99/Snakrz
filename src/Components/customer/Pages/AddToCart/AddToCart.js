@@ -24,7 +24,6 @@ const AddToCart = (props) => {
     const [userEmail, setUserEmail] = useState("")
     const [userPhone, setUserPhone] = useState("")
     const [btnLoader, setBtnLoader] = useState(false);
-    const [orderData, setOrderData] = useState({})
     const [isApiError, setIsApiError] = useState(false)
     const [notes, setNotes] = useState("")
     const [isMsgError, setIsMsgError] = useState(null)
@@ -52,7 +51,7 @@ const AddToCart = (props) => {
                 console.log("CUSTOMER CURRENT USER GET", err)
             })
 
-        setOrderData(JSON.parse(localStorage.getItem('cart')))
+
     }, [])
 
 
@@ -101,6 +100,8 @@ const AddToCart = (props) => {
         //     setBtnLoader(false)
         //     setErrorMessage(error.message)
         // }
+
+        const orderData = JSON.parse(localStorage.getItem('cart'))
 
         let formData = { orderData, storeId, pickUp: radioBtn, totalPrice: totalAmount };
         const cardElement = elements.getElement(CardElement)
@@ -173,7 +174,7 @@ const AddToCart = (props) => {
 
                     <Form onSubmit={createOrders}>
 
-                    <Form.Label>Additional Notes</Form.Label>
+                        <Form.Label>Additional Notes</Form.Label>
                         <Form.Control
                             type={'textarea'}
                             as={'textarea'}

@@ -12,7 +12,7 @@ import Lock from "../../../../../assets/customer/img/lock.png";
 import ApiError from "../../../../../lib/ApiError/ApiError"
 import inputValidation from "../../Login/inputValidation";
 
-const Profile = () => {
+const Profile = (props) => {
 
     const [user, setUser] = useState({})
     const [isApiError, setIsApiError] = useState(false)
@@ -26,6 +26,10 @@ const Profile = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const token = localStorage.getItem('token');
+
+    const token2 = props.match.params.id;
+
+    console.log(token2)
 
     useEffect(() => {
 
@@ -47,15 +51,21 @@ const Profile = () => {
         if (data.CurrentPassword === getPassword) {
             if (data.CurrentPassword !== data.NewPassword) {
                 if (data.NewPassword === data.ConfirmPassword) {
-                    axios.put(`/reset-password/` + { password: data.NewPassword })
+
+
+
+                    axios.put(`/reset-password/` + token, { password: data.NewPassword })
                         .then((res) => {
                             PasswordChangeSuccessfully(addToast)
+                            window.location.reload();
                         }).catch((err) => {
                             setLoading(false)
                             if (err.response.data.message === 'jwt expired') {
                                 setErrorMsg("session expired")
                             }
                         })
+
+
                 }
                 else {
                     setErrorMsg("Password do not match")
@@ -65,7 +75,7 @@ const Profile = () => {
             }
             else {
                 setErrorMsg("current and new password cannot be same")
-                    setLoading(false)
+                setLoading(false)
 
             }
 
@@ -80,7 +90,6 @@ const Profile = () => {
 
 
     let formButton = <button type="submit" className={'btn-send w-50'} >Submit</button>
-
 
     if (loading) {
         formButton = <Loader />

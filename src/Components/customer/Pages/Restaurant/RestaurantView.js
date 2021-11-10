@@ -18,18 +18,17 @@ const RestaurantView = (props) => {
     const [isMsgError, setIsMsgError] = useState(null)
     const [category, setCategory] = useState([])
     const [isOrdered, setIsOrdered] = useState(false)
-    const [allReviews, setAllReviews] = useState(false)
+    const [allReviews, setAllReviews] = useState([])
 
     const customerToken = localStorage.getItem('token')
     console.log(customerToken)
     useEffect(() => {
 
-        // axios.get('/reviews/' ,{ headers: { "Authorization": `Bearer ${customerToken}` } } )
-        // .then((res) => {
-        //     setAllReviews(res.data)
-
-
-        // })
+        axios.get('/reviews/' + storeId)
+            .then((res) => {
+                console.log(res.data)
+                setAllReviews(res.data.reviews);
+            })
 
         if (localStorage.getItem('redirect_to')) {
             localStorage.removeItem(localStorage.getItem('redirect_to'))
@@ -87,24 +86,6 @@ const RestaurantView = (props) => {
         </div>
     )
 
-    const AllReviews = [
-        {
-            name: "Hamza",
-            ratingDesc: "very delicious"
-        },
-        {
-            name: "Ahmed",
-            ratingDesc: "very delicious"
-        },
-        {
-            name: "Mughal",
-            ratingDesc: "very delicious"
-        }
-
-    ]
-
-
-
     const [show, setShow] = useState(false)
 
     const reviewModalHandler = () => {
@@ -121,18 +102,18 @@ const RestaurantView = (props) => {
                 </div>
                 <hr />
                 {
-                    AllReviews.map((reviews) => (
+                    allReviews.map((reviews, index) => (
                         <>
-                            <div className={'container'}>
+                            <div key={allReviews} className={'container'}>
                                 <div className="d-flex  justify-content-between">
                                     <div>
-                                        <p>{reviews.name}</p>
+                                        <p>{reviews.customerId.name}</p>
                                     </div>
                                     <div>
-                                        <RatingStar />
+                                        <RatingStar value={parseInt(reviews.rating)} />
                                     </div>
                                 </div>
-                                <p>{reviews.ratingDesc}</p>
+                                <p>{reviews.comment}</p>
                             </div>
                             <hr />
                         </>
@@ -144,7 +125,7 @@ const RestaurantView = (props) => {
     )
 
     if (!props.loading && props.shop && props.shop.shopBannerImage) {
-    // parseInt(shop.avgRating)
+       
         RestaurantView = (
             <div className={'container w-100 shadow res_div'}>
                 <img className={'res-img'} src={props.shop.shopBannerImage.avatar} alt="img" />
@@ -155,7 +136,7 @@ const RestaurantView = (props) => {
                 </div>
                 <div className={'d-flex'}>
                     <div>
-                        <RatingStar />
+                        <RatingStar  value={parseInt(props.shop.avgRating)} />
                     </div>
                     <div className={'ml-2 mt-1 review-tag'}>
                         <p onClick={reviewModalHandler}> Check Reviews </p>

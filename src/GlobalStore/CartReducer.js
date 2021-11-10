@@ -33,6 +33,7 @@ export const reducer = (state, action) => {
             }
             else {
                 product = action.cartData;
+                console.log(product)
                 product.Quantity = 1
                 let indQty = 1
                 updatedQty = parseInt(totalQuantity) + 1;
@@ -64,9 +65,10 @@ export const reducer = (state, action) => {
                 return currElem
             })
             console.log(product)
-            updatedQty = totalQuantity + 1
+            updatedQty = parseInt(totalQuantity) + 1
             index = cart.findIndex(cart => cart._id === action.id)
             updatedPrice = totalAmount + product[index].productPrice
+            console.log(product)
             localStorage.setItem('cart', JSON.stringify(product))
 
             return {

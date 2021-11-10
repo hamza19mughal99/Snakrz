@@ -16,39 +16,22 @@ const Review = props => {
     const token = localStorage.getItem('vendorToken');
 
 
-    const reviewsData = [
-        {
-            name: "Hamza",
-            comment: "very delicious",
-        },
-        {
-            name: "Ahmed",
-            comment: "very delicious",
-        },
-        {
-            name: "Mughal",
-            comment: "very delicious",
-        },
-
-
-    ]
-
     useEffect(() => {
         setLoader(true);
+        axios.get('/vendor/reviews', { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => {
+                console.log("reviews", res.data)
+                setReviews(res.data)
+            })
 
-        setReviews(reviewsData)
-
-        // axios.get('/vendor/reviews', { headers: { "Authorization": `Bearer ${token}` } })
-        //     .then((res) => {
-        //         console.log("reviews", res.data)
-        //         setReviews(res.data)
-        //     })
     }, [!loader])
 
     const getReviewsTable = (reviews) => {
+
         let reviewTable = (
             <Loader style={'text-center'} />
         );
+
         if (reviews && reviews.length === 0) {
             reviewTable = <p className={'text-center'}>No Reviews Found</p>
         }
@@ -68,13 +51,13 @@ const Review = props => {
                     <TableBody>
                         <Fragment>
                             {
-                                reviews.map((reviews, index) => {
+                                reviews.map((review, index) => {
                                     return (
                                         (
                                             <TableRow hover key={index}>
-                                                <TableCell> {reviews.name} </TableCell>
-                                                <TableCell> {reviews.comment} </TableCell>
-                                                <TableCell> <RatingStar /> </TableCell>
+                                                <TableCell> {review.customerId.name} </TableCell>
+                                                <TableCell> {review.comment} </TableCell>
+                                                <TableCell> <RatingStar value={parseInt(review.rating)} /> </TableCell>
                                                 {/* <TableCell> {[...Array(reviews.rating)].map(() => (
                                                     <i className="zmdi zmdi-star-circle px-1" />
                                                 ))} </TableCell> */}

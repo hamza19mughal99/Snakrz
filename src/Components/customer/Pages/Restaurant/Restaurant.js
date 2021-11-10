@@ -11,6 +11,7 @@ import RatingStar from "../../../../lib/customer/RatingStar/RatingStar";
 import './restaurant.css'
 
 const Restaurant = (props) => {
+    console.log(props)
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [marker, setMarker] = useState({});
     const [selectedShop, setSelectedShop] = useState(null);
@@ -51,7 +52,7 @@ const Restaurant = (props) => {
     }
 
     let iconColor = { color: '#ff4200' }
-    // parseInt(shop.avgRating)
+    
     if (props.shops && props.shops.length > 0) {
         restaurant = (
             <div className="row ">
@@ -63,7 +64,7 @@ const Restaurant = (props) => {
                                 <div className="pro-head">
                                     <div>
                                         <h3 className="text-left">{shop.shopName}</h3>
-                                        <RatingStar />
+                                        <RatingStar value={parseInt(shop.avgRating)} />
                                         <FaMapMarkerAlt style={iconColor} />
                                         <span>{shop.address}</span>
                                         <hr />

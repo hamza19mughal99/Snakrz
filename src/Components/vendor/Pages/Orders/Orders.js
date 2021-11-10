@@ -208,6 +208,7 @@ const Customers = props => {
 				<div>
 					{
 						products.map((product, index) => {
+							console.log(product)
 							return (
 								<>
 									<div>

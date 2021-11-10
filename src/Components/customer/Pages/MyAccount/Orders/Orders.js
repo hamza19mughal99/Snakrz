@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./order.css";
 import axios from "axios";
-import { Modal, Row, Col, Button, ModalBody, Form } from "react-bootstrap";
-import {ReviewSentSuccessfully} from "../../../../../lib/customer/Toaster/Toaster";
+import { Modal, Row, Col, ModalBody, Form } from "react-bootstrap";
+import { ReviewSentSuccessfully } from "../../../../../lib/customer/Toaster/Toaster";
 import { useToasts } from "react-toast-notifications";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
 import Loader from "../../../../../lib/customer/Loader/Loader";
@@ -60,14 +60,14 @@ const Orders = (props) => {
     const [show, setShow] = useState(false)
     const [currentLocation, setCurrentLocation] = useState(null)
     const [orderId, setOrderId] = useState(null)
-    const [customerName, setCustomerName] = useState('');
+    const [customerId, setCustomerId] = useState('');
     const [submitLoader, setSubmitLoader] = useState(false);
     const [comment, setComment] = useState("")
     const [shopId, setShopId] = useState("");
     const [starRating, setStarRating] = useState(1)
     const [error, setError] = useState(false)
     const [show2, setShow2] = useState(false)
-    const [doneReview, setDoneReview] = useState(false)
+    const [doneReview, setDoneReview] = useState('')
 
     const token = localStorage.getItem('token');
 
@@ -120,7 +120,7 @@ const Orders = (props) => {
     const ReviewModalHandler = (myOrder) => {
 
         setShow2(true);
-        setCustomerName(myOrder.customer);
+        setCustomerId(myOrder.customer);
         setOrderId(myOrder._id);
         setShopId(myOrder.shop._id)
     }
@@ -131,14 +131,15 @@ const Orders = (props) => {
         if (comment === "") {
             setError(true)
         }
-        axios.post("review/" + orderId, {
-            "customerName": customerName,
+        axios.post("/review/" + orderId, {
+            "customerId": customerId,
             "rating": starRating,
             "comment": comment,
             "shop": shopId
         }).then((res) => {
             setSubmitLoader(false)
-            setShow(false)
+            setShow2(false)
+            window.location.reload();
             ReviewSentSuccessfully(addToast)
             // setDoneReview(true)
         }).catch((err) => {
@@ -233,19 +234,26 @@ const Orders = (props) => {
     }
 
     const modal = (
-        <Modal show={show} size={'md'} onClick={handleClose} style={{ borderRadius: "15px" }} className="StaffEditCard">
-            <div className={'map_wrapper_setting'}>
-                <Map google={props.google}
-                    initialCenter={currentLocation}
-                    zoom={16}
-                >
-                    <Marker
-                        position={
-                            currentLocation
-                        }
-                        name={'Your position'} />
-                </Map>
-            </div>
+        <Modal show={show} size={'md'} style={{ borderRadius: "15px" }} className="StaffEditCard">
+            <Modal.Header>
+                <Modal.Title className={'uppercase white bold'}>Reviews</Modal.Title>
+                <Modal.Title style={{ cursor: "pointer" }} className={'uppercase white bold'} onClick={handleClose} >X</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className={'map_wrapper_setting'}>
+                    <Map google={props.google}
+                        initialCenter={currentLocation}
+                        zoom={16}
+                    >
+                        <Marker
+                            position={
+                                currentLocation
+                            }
+                            name={'Your position'} />
+                    </Map>
+                </div>
+            </Modal.Body>
+
         </Modal>
     )
 
@@ -415,8 +423,10 @@ const Orders = (props) => {
                                                                                 <p style={{ fontWeight: "bold", color: "#fff", marginLeft: "20px" }}> <Countdown date={Date.now() + order.totalTime} /></p>
                                                                             </div>
                                                                             :
-                                                                            // doneReview ? null :
-                                                                                <p onClick={() => ReviewModalHandler(order)} style={{ fontWeight: "bold", color: "#fff", cursor: "pointer" }}>Give Review</p>
+
+                                                                            // order.isReviewed === false ? 
+                                                                            <p onClick={() => ReviewModalHandler(order)} style={{ fontWeight: "bold", color: "#fff", cursor: "pointer" }}>Give Review</p>
+                                                                        // : null
                                                                     }
                                                                 </div>
                                                             </div>

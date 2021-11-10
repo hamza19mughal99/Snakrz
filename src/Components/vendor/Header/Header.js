@@ -15,12 +15,15 @@ function Header(props) {
 	const [payment, setPayment] = useState(false);
 	const token = localStorage.getItem("vendorToken")
 
+
+
 	useEffect(() => {
+
 		const paymentMethod = localStorage.getItem('paymentMethod');
 		if (paymentMethod) {
-			console.log(paymentMethod)
 			setPayment(paymentMethod)
 		}
+
 		axios.get('/current-user', { headers: { "Authorization": `Bearer ${token}` } })
 			.then((res) => {
 				if (paymentMethod !== res.data.paymentMethod) {
@@ -33,6 +36,8 @@ function Header(props) {
 				console.log("VENDOR HEADER GET", err)
 			})
 	}, [])
+
+
 
 	const dispatch = useDispatch();
 	const settings = useSelector(state => state.settings);

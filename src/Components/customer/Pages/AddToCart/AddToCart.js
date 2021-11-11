@@ -50,10 +50,7 @@ const AddToCart = (props) => {
                 setIsMsgError(err.message)
                 console.log("CUSTOMER CURRENT USER GET", err)
             })
-
-
     }, [])
-
 
 
     let totalAmount = 0
@@ -68,8 +65,6 @@ const AddToCart = (props) => {
             return acc + (+val.productPrice) * (val.Quantity) + totalAddOn
         }, 0)
     }
-
-
 
     const { dispatch } = useContext(CartContext)
 
@@ -103,7 +98,7 @@ const AddToCart = (props) => {
 
         const orderData = JSON.parse(localStorage.getItem('cart'))
 
-        let formData = { orderData, storeId, pickUp: radioBtn, totalPrice: totalAmount };
+        let formData = { orderData, storeId, pickUp: radioBtn, totalPrice: FinalAmount, vendorTotalPrice: totalAmount };
         const cardElement = elements.getElement(CardElement)
 
         stripe.createToken(cardElement).then((result) => {
@@ -154,6 +149,15 @@ const AddToCart = (props) => {
         setRadioBtn(radio)
 
     }
+
+    console.log(totalAmount)
+
+    const calculateAmount = Math.round(parseInt(totalAmount) * 0.1);
+
+
+    const FinalAmount = parseInt(calculateAmount) + parseInt(totalAmount)
+
+    console.log(FinalAmount)
 
     return (
         <>
@@ -344,8 +348,16 @@ const AddToCart = (props) => {
                         <hr />
                         <h4>ORDER SUMMARY</h4>
                         <div className={'order-sum'}>
+                            <h5>ORDER BILL</h5>
+                            <h4> $ {totalAmount}  </h4>
+                        </div>
+                        <div className={'order-sum'}>
+                            <h5>VAT</h5>
+                            <h4> $ {calculateAmount}  </h4>
+                        </div>
+                        <div className={'order-sum'}>
                             <h5>TOTAL</h5>
-                            <h4>$ {totalAmount}</h4>
+                            <h4> $ {FinalAmount}</h4>
                         </div>
                     </div>
                 </div>

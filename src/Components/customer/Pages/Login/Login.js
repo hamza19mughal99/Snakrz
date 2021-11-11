@@ -37,7 +37,7 @@ const Login = props => {
     let errorMessage = null;
     if (props.error) {
         console.log(props.error)
-        errorMessage = <p className={'text-danger font-weight-bold '}>Something went wrong!</p>
+        errorMessage = <p className={'text-danger font-weight-bold '}>{props.error}</p>
     }
     return (
         <section className=" py-5 sign-up-section sign-in">

@@ -10,14 +10,12 @@ const EcommerceDashboard = () => {
          <div className="ecom-dashboard-wrapper ">
             <title>Dashboard</title>
 
-            <div className="d-flex flex-wrap">
+            <div className="d-flex">
                <div >
                   <RctCollapsibleCard
                      colClasses="col-sm-12 col-md-12 col-lg-12 "
                      heading={"Total Vendors"}
-                     collapsible
                      reloadable
-                     closeable
                      fullBlock
                   >
                      <RecentOrdersWidget />

@@ -28,7 +28,7 @@ const ForgetPassword = props => {
                 console.log(res.data);
             }).catch((err) => {
                 setLoading(false)
-               forgetPassword(addToast, err.response.data.message)
+                forgetPassword(addToast, err.response.data.message)
                 setError(err.response.data.message)
             })
     }
@@ -46,19 +46,17 @@ const ForgetPassword = props => {
     return (
         <div className={' h-100 justify-content-center align-items-center'}>
             <Container className={'h-100 text-center'}>
-                <Row style={{ height: "100vh" }} className={' w-100 align-items-center justify-content-center'}>
-                    <Col md={7}>
+                <Row style={{ height: "100vh" }} className={' align-items-center justify-content-center'}>
+                    <Col md={8}>
                         <Form onSubmit={handleSubmit(onFormSubmit)}>
-
-                            <Paper elevation={3} >
-                                <Row className={' justify-content-center text-center pt-5'}>
+                            <Paper elevation={3}>
+                                <Row className={' justify-content-center text-center p-4'}>
                                     <Col md={8}>
                                         <div>
                                             <Form.Control type={'text'} placeholder={'Enter your email for recovery '} className={'recovery__email py-4'} {...register('email', inputValidation.email)} />
                                         </div>
                                     </Col>
-                                </Row>
-                                <Row className={'justify-content-center pb-5'}>
+
                                     <Col md={8}>
                                         <div className={' text-center mt-3 '}>
                                             {forgetButton}
@@ -67,7 +65,6 @@ const ForgetPassword = props => {
                                 </Row>
                             </Paper>
                         </Form>
-
                     </Col>
                 </Row>
             </Container>

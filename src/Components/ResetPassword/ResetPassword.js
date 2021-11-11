@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Container, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import inputValidation from "../customer/Pages/Register/inputValidation";
 import Loader from "../../lib/customer/Loader/Loader";
@@ -53,7 +53,7 @@ const ResetPassword = props => {
 	let formButton = (
 		<>
 			<div className="text-center">
-				<button type={'submit'} className={'btn-send w-75'} >Reset</button>
+				<button type={'submit'} className={'btn-send w-75'} >Reset Password</button>
 			</div>
 		</>
 	)
@@ -70,43 +70,57 @@ const ResetPassword = props => {
 	console.log("errors", errors)
 
 	return (
-		<Form onSubmit={handleSubmit(onSubmit)} className="my-info-main">
-			<small className="text-center" style={{ fontSize: "16px" }}>
-				{errorMessage}
-			</small>
-			<div style={{ height: "80vh" }} className=" info row align-items-center justify-content-center mt-5">
-				<div className="col-lg-5">
-					<Paper elevation={3} className="px-3 py-3">
-						<h5 style={{ textAlign: "center", fontWeight: "bold" }} >Password</h5>
-						<small className="text-danger" style={{ fontSize: "10px" }}>
-							{errors.oldPassword && errors.oldPassword.message}
-						</small>
-						<div className="input-group mb-2">
-							<Form.Control type={'password'}
-								placeholder={'New Password'}
-								{...register('newPassword', inputValidation.newPassword)} className={'recovery__email py-4'} />
-						</div>
-						<small className="text-danger" style={{ fontSize: "10px" }}>
-							{errors.newPassword && errors.newPassword.message}
-						</small>
-						<div className="input-group mb-2">
-							<Form.Control
-								type={'password'}
-								placeholder={'Confirm Password'}
-								{...register('confirmPassword', inputValidation.confirmNewPassword)}
-								className={'recovery__email py-4'}
-							/>
+		<>
+			<div className={' h-100 justify-content-center align-items-center'}>
+				<Container className={'h-100 text-center'}>
+					<Row style={{ height: "100vh" }} className={' align-items-center justify-content-center'}>
+						<Col md={8}>
 
-						</div>
-						<small className="text-danger" style={{ fontSize: "10px" }}>
-							{errors.confirmPassword && errors.confirmPassword.message}
-						</small>
-						{formButton}
-					</Paper>
+							<Form onSubmit={handleSubmit(onSubmit)}>
+								<small className="text-center" style={{ fontSize: "16px" }}>
+									{errorMessage}
+								</small>
+								<Paper elevation={3} >
 
-				</div>
+									<Row className={' justify-content-center text-center p-4'}>
+
+										<Col md={8}>
+											<div >
+												<Form.Control type={'password'}
+													placeholder={'New Password'}
+													{...register('newPassword', inputValidation.newPassword)} className={'recovery__email py-4'} />
+											</div>
+											<small className="text-danger" style={{ fontSize: "10px" }}>
+												{errors.newPassword && errors.newPassword.message}
+											</small>
+										</Col>
+
+										<Col md={8}>
+											<div >
+												<Form.Control
+													type={'password'}
+													placeholder={'Confirm Password'}
+													{...register('confirmPassword', inputValidation.confirmNewPassword)}
+													className={'recovery__email py-4'}
+												/>
+											</div>
+											<small className="text-danger" style={{ fontSize: "10px" }}>
+												{errors.confirmPassword && errors.confirmPassword.message}
+											</small>
+										</Col>
+
+										<Col md={8}>
+											{formButton}
+
+										</Col>
+									</Row>
+								</Paper>
+							</Form>
+						</Col>
+					</Row>
+				</Container>
 			</div>
-		</Form>
+		</>
 
 	)
 }

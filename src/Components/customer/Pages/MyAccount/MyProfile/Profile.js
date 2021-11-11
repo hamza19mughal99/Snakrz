@@ -27,63 +27,57 @@ const Profile = (props) => {
 
     const token = localStorage.getItem('token');
 
-    const token2 = props.match.params.id;
-
-    console.log(token2)
 
     useEffect(() => {
 
         axios.get('/current-user', { headers: { "Authorization": `Bearer ${token}` } })
             .then((res) => {
-                setGetPassword("12345678")
                 setUser(res.data)
             })
             .catch((err) => {
                 setIsApiError(true)
                 setIsMsgError(err.message)
-                console.log("CUSTOMER PROFILE GET", err)
+                console.log("CUSTOMER PROFILE GET", err.response.data.message)
             })
     }, [])
 
     const handleFormSubmit = (data) => {
         setLoading(true);
 
-        if (data.CurrentPassword === getPassword) {
-            if (data.CurrentPassword !== data.NewPassword) {
-                if (data.NewPassword === data.ConfirmPassword) {
 
+        if (data.CurrentPassword !== data.NewPassword) {
 
+            if (data.NewPassword === data.ConfirmPassword) {
 
-                    axios.put(`/reset-password/` + token, { password: data.NewPassword })
-                        .then((res) => {
+                const updatedPassword = {
+                    currentPassword: data.CurrentPassword,
+                    newPassword: data.NewPassword
+                }
+
+                axios.put('/change-password/', updatedPassword, { headers: { "Authorization": `Bearer ${token}` } })
+                    .then((res) => {
+                        if(res.data.updated){
                             PasswordChangeSuccessfully(addToast)
                             window.location.reload();
-                        }).catch((err) => {
-                            setLoading(false)
-                            if (err.response.data.message === 'jwt expired') {
-                                setErrorMsg("session expired")
-                            }
-                        })
+                        }
+                        
+                    }).catch((err) => {
+                        setLoading(false)
+                        setErrorMsg(err.response.data.message)
+                        if (err.response.data.message === 'jwt expired') {
+                            setErrorMsg("session expired")
+                        }
+                    })
 
-
-                }
-                else {
-                    setErrorMsg("Password do not match")
-                    setLoading(false)
-
-                }
             }
             else {
-                setErrorMsg("current and new password cannot be same")
+                setErrorMsg("Password do not match")
                 setLoading(false)
-
             }
-
         }
         else {
-            setErrorMsg("Current Password is not Correct")
+            setErrorMsg("current and new password cannot be same")
             setLoading(false)
-
         }
 
     }

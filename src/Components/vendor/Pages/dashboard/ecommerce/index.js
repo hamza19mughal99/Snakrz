@@ -48,10 +48,10 @@ const VendorDashboard = () => {
             </div>
          </div>
 
-         <div className="d-flex flex-wrap">
+         <div className="d-flex ">
             <div className={''}>
                <RctCollapsibleCard
-                  colClasses="col-sm-12 col-md-12 col-lg-12 "
+                  colClasses="col-md-12"
                   heading={"Recent Orders"}
                   reloadable
                   fullBlock

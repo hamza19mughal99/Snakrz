@@ -158,7 +158,6 @@ const AddOn = props => {
 
 	const onChangeHandler = (e) => {
 		const { name, value } = e.target;
-		console.log(name, value)
 		setFormData({
 			...formData,
 			[name]: value
@@ -166,6 +165,9 @@ const AddOn = props => {
 	}
 
 	const [editAddOnErrors, setEditAddOnErrors] = useState('')
+
+	const [editDisabledBtn, setEditDisabledBtn] = useState(true)
+
 	const onAddEditHandler = () => {
 		if (editFormData.title === '' || editFormData.name === '' || editFormData.price === '') {
 			setEditAddOnErrors('All Fields cannot be empty')
@@ -182,6 +184,7 @@ const AddOn = props => {
 				}
 			})
 			if (!bool) {
+				setEditDisabledBtn(false)
 				setEditAddOnArr([...editAddOnArr, {
 					name: editFormData.name,
 					price: editFormData.price
@@ -194,25 +197,31 @@ const AddOn = props => {
 			})
 		}
 	}
+
 	const [addOnErrors, setAddOnErrors] = useState()
+
+	const [disabledBtn, setDisabledBtn] = useState(true)
+
 	const onAddHandler = () => {
 
 		if (formData.title === '' || formData.name === '' || formData.price === '') {
 			setAddOnErrors('All Fields cannot be empty')
-
 		}
+
 		else {
 			setAddOnErrors(' ')
 			let arr = addOnArr;
 			let bool = false;
+
 			arr.forEach((item) => {
 				if (item.name === formData.name) {
-
 					setAddOnError('Item Already Added')
 					bool = true
 				}
+
 			})
 			if (!bool) {
+				setDisabledBtn(false)
 				setAddOnArr([...addOnArr, {
 					name: formData.name,
 					price: formData.price
@@ -223,10 +232,18 @@ const AddOn = props => {
 				name: '',
 				price: ''
 			})
+
 		}
 	}
 
 	const onRemoveEditHandler = (item) => {
+		console.log(editAddOnArr.length)
+
+		if (editAddOnArr.length === 1) {
+			setEditDisabledBtn(true)
+		}
+		setEditDisabledBtn(false)
+
 		let arr;
 		arr = editAddOnArr
 		let selectedItemIndex = arr.indexOf(item)
@@ -235,6 +252,7 @@ const AddOn = props => {
 	}
 
 	const onRemoveHandler = (item) => {
+		setDisabledBtn(true)
 		let arr;
 		arr = addOnArr
 		let selectedItemIndex = arr.indexOf(item)
@@ -297,7 +315,7 @@ const AddOn = props => {
 
 							<Col md={5}>
 								<Input
-									type="text"
+									type="number"
 									name="price"
 									className={'my-2'}
 									placeholder="Price"
@@ -341,9 +359,15 @@ const AddOn = props => {
 					}
 					<div className={'text-center'}>
 						{
-							!submitLoader ?
-								<button type={'submit'} className={'px-5 btn btn-send btn-block'}>Add</button>
-								: (<Loader style={'text-center'} />)
+							disabledBtn ?
+								!submitLoader ?
+									<button type={'submit'} disabled style={{ opacity: "0.5" }} className={'px-5 btn btn-send btn-block'}>Add</button>
+									: (<Loader style={'text-center'} />)
+
+								:
+								!submitLoader ?
+									<button type={'submit'} className={'px-5 btn btn-send btn-block'}>Add</button>
+									: (<Loader style={'text-center'} />)
 						}
 					</div>
 				</Form>
@@ -396,7 +420,7 @@ const AddOn = props => {
 							</Col>
 							<Col md={5}>
 								<Input
-									type="text"
+									type="number"
 									name="price"
 									className={'my-2'}
 									placeholder="Price"
@@ -436,9 +460,15 @@ const AddOn = props => {
 					}
 					<div className={'text-center'}>
 						{
-							!submitLoader ?
-								<button type={'submit'} className={'px-5 btn btn-send btn-block'}>Edit</button>
-								: (<Loader style={'text-center'} />)
+							
+							editDisabledBtn ?
+								!submitLoader ?
+									<button type={'submit'} disabled style={{ opacity: "0.5" }} className={'px-5 btn btn-send btn-block'}>Edit</button>
+									: (<Loader style={'text-center'} />)
+								:
+								!submitLoader ?
+									<button type={'submit'} className={'px-5 btn btn-send btn-block'}>Edit</button>
+									: (<Loader style={'text-center'} />)
 						}
 					</div>
 				</Form>

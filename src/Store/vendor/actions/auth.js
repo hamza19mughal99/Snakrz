@@ -69,12 +69,17 @@ export const vendorAuth = (email, password, isSignUp, phoneNumber) => {
 			.catch((err) => {
 
 				if (isSignUp) {
+					if(err.response && err.response.data){
+						dispatch(vendorAuthFail(err.response.data.message))
+	
+					}
 
-					dispatch(vendorAuthFail(err.response.data.message))
 				}
 				else {
-					dispatch(vendorAuthFail(err.response.data.message))
-				}
+					if(err.response && err.response.data){
+						dispatch(vendorAuthFail(err.response.data.message))
+	
+					}				}
 			})
 	}
 }

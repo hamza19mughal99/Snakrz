@@ -184,6 +184,7 @@ const AddOn = props => {
 				}
 			})
 			if (!bool) {
+				setAddOnError(' ')
 				setEditDisabledBtn(false)
 				setEditAddOnArr([...editAddOnArr, {
 					name: editFormData.name,
@@ -221,6 +222,7 @@ const AddOn = props => {
 
 			})
 			if (!bool) {
+				setAddOnError(" ")
 				setDisabledBtn(false)
 				setAddOnArr([...addOnArr, {
 					name: formData.name,
@@ -239,25 +241,31 @@ const AddOn = props => {
 	const onRemoveEditHandler = (item) => {
 		console.log(editAddOnArr.length)
 
-		if (editAddOnArr.length === 1) {
-			setEditDisabledBtn(true)
-		}
-		setEditDisabledBtn(false)
+	
 
 		let arr;
 		arr = editAddOnArr
 		let selectedItemIndex = arr.indexOf(item)
 		arr.splice(selectedItemIndex, 1)
 		setEditAddOnArr([...arr])
+		
+		if (arr.length === 0) {
+			setEditDisabledBtn(true)
+		}
 	}
 
 	const onRemoveHandler = (item) => {
-		setDisabledBtn(true)
+		console.log("HELLO WORLD")
+
 		let arr;
 		arr = addOnArr
 		let selectedItemIndex = arr.indexOf(item)
 		arr.splice(selectedItemIndex, 1)
 		setAddOnArr([...arr])
+		console.log(arr.length)
+		if(arr.length === 0) {
+			setDisabledBtn(true)
+		}
 	}
 
 	const onEditChangeHandler = (e) => {
@@ -460,7 +468,7 @@ const AddOn = props => {
 					}
 					<div className={'text-center'}>
 						{
-							
+
 							editDisabledBtn ?
 								!submitLoader ?
 									<button type={'submit'} disabled style={{ opacity: "0.5" }} className={'px-5 btn btn-send btn-block'}>Edit</button>

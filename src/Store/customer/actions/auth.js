@@ -67,7 +67,10 @@ export const auth = (email, password, name, isSignUp, phoneNumber, location) => 
 				}
 			})
 			.catch((err) => {
-				dispatch(authFail(err.response.data.message))
+				if(err.response && err.response.data){
+					dispatch(authFail(err.response.data.message))
+
+				}
 
 			})
 	}

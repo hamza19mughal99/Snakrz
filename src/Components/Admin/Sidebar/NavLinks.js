@@ -26,7 +26,16 @@ let adminsidebarMenu = {
          "type_multi": null,
          "new_item": true,
          "child_routes": null
-      },  
+      },
+      {
+         "name": 'refunds',
+         "menu_title": "refunds",
+         'path': '/admin/refunds',
+         "menu_icon": "zmdi zmdi-calendar",
+         "type_multi": null,
+         "new_item": true,
+         "child_routes": null
+      },    
     ]
  }
  

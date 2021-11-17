@@ -68,6 +68,8 @@ const Orders = (props) => {
     const [error, setError] = useState(false)
     const [show2, setShow2] = useState(false)
     const [doneReview, setDoneReview] = useState('')
+    const [address, setAddress] = useState(null)
+
 
     const token = localStorage.getItem('token');
 
@@ -218,12 +220,10 @@ const Orders = (props) => {
 
 
     const handleClose = () => setShow(false);
-
     const ModalHandler = (order) => {
-        console.log(order)
+        setAddress(order.shop.address)
         axios.get('/shop-location/' + order.shop._id)
             .then((res) => {
-                console.log(res.data)
                 setCurrentLocation({
                     lat: res.data.location.coordinates[0],
                     lng: res.data.location.coordinates[1],
@@ -236,10 +236,13 @@ const Orders = (props) => {
     const modal = (
         <Modal show={show} size={'md'} style={{ borderRadius: "15px" }} className="StaffEditCard">
             <Modal.Header>
-                <Modal.Title className={'uppercase white bold'}>Reviews</Modal.Title>
+                <Modal.Title className={'uppercase white bold'}>Map</Modal.Title>
                 <Modal.Title style={{ cursor: "pointer" }} className={'uppercase white bold'} onClick={handleClose} >X</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <div>
+                    <h5>Address: {address} </h5>
+                </div>
                 <div className={'map_wrapper_setting'}>
                     <Map google={props.google}
                         initialCenter={currentLocation}
@@ -424,9 +427,9 @@ const Orders = (props) => {
                                                                             </div>
                                                                             :
 
-                                                                            // order.isReviewed === false ? 
-                                                                            <p onClick={() => ReviewModalHandler(order)} style={{ fontWeight: "bold", color: "#fff", cursor: "pointer" }}>Give Review</p>
-                                                                        // : null
+                                                                            order.isReviewed === false ?
+                                                                                <p onClick={() => ReviewModalHandler(order)} style={{ fontWeight: "bold", color: "#fff", cursor: "pointer" }}>Give Review</p>
+                                                                                : null
                                                                     }
                                                                 </div>
                                                             </div>

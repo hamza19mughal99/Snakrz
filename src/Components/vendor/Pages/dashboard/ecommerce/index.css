@@ -2,8 +2,16 @@
     width: 35%;
 }
 
+.main-div-wrap{
+    display: flex;
+}
+
 @media (max-width: 991px) {
     .vendor-dash{
         width: 100%;
     }
+    .main-div-wrap{
+        flex-wrap: wrap;
+    }
+    
 }

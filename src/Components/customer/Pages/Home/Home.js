@@ -47,7 +47,6 @@ const Homesection = () => {
                         label: res.data.results[0].formatted_address,
                         value: res.data.results[0],
                     }
-                    console.log(obj)
                     setValue(obj)
                     setSelectedLocation({
                         lat: position.coords.latitude,

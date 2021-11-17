@@ -20,7 +20,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className=" col-lg-2 col-md-4 ">
+                        <div className=" col-lg-3 col-md-4 ">
                             <div className="footer-sec-2 footer-same ">
                                 <h3>COMPANY</h3>
                                 <ul>
@@ -39,45 +39,7 @@ const Footer = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-2 col-md-4  ">
-                            <div className="footer-sec-2 footer-same ">
-                                <h3>FOR FOODIES</h3>
-                                <ul>
-                                    <li>
-                                        Code of Conduct
-                                    </li>
-                                    <li>
-                                        Community
-                                    </li>
-                                    <li>
-                                        Blogger Help
-                                    </li>
-                                    <li>
-                                        Mobile Apps
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-4 ">
-                            <div className="footer-sec-2 footer-same ">
-                                <h3>FOR RESTAURANTS</h3>
-                                <ul>
-                                    <li>
-                                        Add restaurant
-                                    </li>
-                                    <li>
-                                        Business App
-                                    </li>
-                                    <li>
-                                        Restaurant Widgets
-                                    </li>
-                                    <li>
-                                        Product for Businesses
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-lg-2 col-md-4  tb-menu">
+                        <div className="col-lg-3 col-md-4  tb-menu">
                             <div className="footer-sec-2 footer-same ">
                                 <h3>For You</h3>
                                 <ul>
@@ -96,7 +58,20 @@ const Footer = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-2 col-md-4 tb-menu ">
+                        <div className="col-lg-3 col-md-4  tb-menu">
+                            <div className="footer-sec-2 footer-same ">
+                                <h3>Admin</h3>
+                                <ul>
+                                    <li>
+                                        obaid@admin.com
+                                    </li>
+                                    <li>
+                                        +92 349 2496204
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-lg-3 col-md-4 tb-menu ">
                             <div className="footer-sec-2 footer-same ">
                                 <h3>SOCIAL LINKS</h3>
                                 <i className="fab "> <FaFacebookSquare /></i>

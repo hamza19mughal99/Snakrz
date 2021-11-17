@@ -48,8 +48,8 @@ const VendorDashboard = () => {
             </div>
          </div>
 
-         <div className="d-flex ">
-            <div className={''}>
+         <div className="main-div-wrap">
+            <div >
                <RctCollapsibleCard
                   colClasses="col-md-12"
                   heading={"Recent Orders"}

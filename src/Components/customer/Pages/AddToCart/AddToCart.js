@@ -30,7 +30,9 @@ const AddToCart = (props) => {
 
     const token = localStorage.getItem("token")
     let cart = JSON.parse(localStorage.getItem('cart'))
+
     const storeId = props.match.params.id;
+
     if (cart && cart.length <= 0) {
         window.location.href = '/restaurantView/' + storeId
     }
@@ -98,47 +100,48 @@ const AddToCart = (props) => {
 
         const orderData = JSON.parse(localStorage.getItem('cart'))
 
-        let formData = { orderData, storeId, pickUp: radioBtn, totalPrice: FinalAmount, vendorTotalPrice: totalAmount };
-        const cardElement = elements.getElement(CardElement)
 
-        stripe.createToken(cardElement).then((result) => {
-            if (result.token) {
-                console.log(result.token)
-                axios.post('/order', { ...formData, token: result.token, notes }, { headers: { "Authorization": `Bearer ${token}` } })
-                    .then((res) => {
-                        setBtnLoader(false);
-                        setErrorMessage('');
-                        orderPostSuccessfully(addToast)
-                        localStorage.removeItem('cart')
-                        window.location.href = '/orders';
-                    })
-            } else if (result.error) {
-                setErrorMessage(result.error.message);
-                setBtnLoader(false);
-            }
-        });
-
-        // const res = await axios.post('/payment/secret', { orderData }, { headers: { "Authorization": `Bearer ${token}` } })
-
-        // const cardPayment = await stripe.confirmCardPayment(res.data.client_secret, {
-        //     payment_method: {
-        //         card: elements.getElement(CardElement),
+        // stripe.createToken(cardElement).then((result) => {
+        //     if (result.token) {
+        //         console.log(result.token)
+        //         axios.post('/order', { ...formData, token: result.token, notes }, { headers: { "Authorization": `Bearer ${token}` } })
+        //             .then((res) => {
+        //                 setBtnLoader(false);
+        //                 setErrorMessage('');
+        //                 orderPostSuccessfully(addToast)
+        //                 localStorage.removeItem('cart')
+        //                 window.location.href = '/orders';
+        //             })
+        //     } else if (result.error) {
+        //         setErrorMessage(result.error.message);
+        //         setBtnLoader(false);
         //     }
-        // })
+        // });
 
-        // if (cardPayment.error) {
-        //     setBtnLoader(false)
-        //     setErrorMessage(cardPayment.error.message)
-        // } else {
-        //     axios.post('/order', formData, { headers: { "Authorization": `Bearer ${token}` } })
-        //         .then((res) => {
-        //             setBtnLoader(false);
-        //             setErrorMessage('');
-        //             orderPostSuccessfully(addToast)
-        //             // localStorage.removeItem('cart')
-        //             // window.location.href = '/';
-        //         })
-        // }
+        // -------------------new------------
+
+        const res = await axios.post('/payment/secret', { storeId, totalPrice: FinalAmount, vendorTotalPrice: totalAmount }, { headers: { "Authorization": `Bearer ${token}` } })
+
+        const cardPayment = await stripe.confirmCardPayment(res.data.client_secret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+            }
+        })
+        let formData = { orderData, storeId, pickUp: radioBtn, totalPrice: FinalAmount, notes, paymentIntentId: res.data.paymentIntentId };
+
+        if (cardPayment.error) {
+            setBtnLoader(false)
+            setErrorMessage(cardPayment.error.message)
+        } else {
+            axios.post('/order', formData, { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    setBtnLoader(false);
+                    setErrorMessage('');
+                    orderPostSuccessfully(addToast)
+                    localStorage.removeItem('cart')
+                    window.location.href = '/orders';
+                })
+        }
     }
 
     let [radioBtn, setRadioBtn] = useState(null)
@@ -150,14 +153,10 @@ const AddToCart = (props) => {
 
     }
 
-    console.log(totalAmount)
-
     const calculateAmount = Math.round(parseInt(totalAmount) * 0.1);
-
 
     const FinalAmount = parseInt(calculateAmount) + parseInt(totalAmount)
 
-    console.log(FinalAmount)
 
     return (
         <>
@@ -182,6 +181,7 @@ const AddToCart = (props) => {
                         <Form.Control
                             type={'textarea'}
                             as={'textarea'}
+                            required
                             value={notes}
                             className={'mb-5'}
                             onChange={(e) => setNotes(e.target.value)}

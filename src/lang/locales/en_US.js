@@ -10,6 +10,7 @@ module.exports = {
    "sidebar.vendors": "Vendors",
    "sidebar.addOn": "AddOn",
    "sidebar.deals": "Deals",
+   "sidebar.reviews": "Reviews",
    "sidebar.studentactivity": "studentActivity",
    "sidebar.activityforms": "ActivityForms",
    "sidebar.category": "Category",

@@ -33,6 +33,10 @@ const Menu = (props) => {
 	const [timeError, setTimeError] = useState(null)
 	const [categoryMsg, setCategoryMsg] = useState(null)
 	const [categoryNotSelect, setCategoryNotSelect] = useState(null)
+	const [editCategoryNotSelect, setEditCategoryNotSelect] = useState(null)
+	const [menuType, setMenuType] = useState(null)
+
+
 	let error = {}
 
 	const { addToast } = useToasts()
@@ -85,7 +89,7 @@ const Menu = (props) => {
 	}
 
 	const editModalHandler = (menuId) => {
-		console.log(menuId)
+
 		axios.get('/vendor/product/' + menuId, { headers: { "Authorization": `Bearer ${token}` } })
 			.then((res) => {
 				console.log(res.data.addOn)
@@ -141,6 +145,8 @@ const Menu = (props) => {
 		</div>
 	)
 
+
+
 	const onFormSubmit = (data) => {
 		console.log(data)
 		setSubmitLoader(true);
@@ -158,6 +164,11 @@ const Menu = (props) => {
 			setCategoryNotSelect(categoryData)
 			setSubmitLoader(false);
 		}
+
+		if (data.menuType === undefined) {
+			setMenuType("please select a Menu Type")
+		}
+
 		else {
 
 			if (hour >= 0 && (min > 0 && min < 60)) {
@@ -245,7 +256,7 @@ const Menu = (props) => {
 					<FormGroup>
 						<Label for="name">Product Price</Label>
 						<Input
-							type="text"
+							type="number"
 							name="productPrice"
 							placeholder="Product Price"
 							{...register('productPrice', MenuValidation.price)}
@@ -319,7 +330,7 @@ const Menu = (props) => {
 									name={'addOn'}
 									cacheOptions
 									isMulti
-									required
+
 									defaultOptions
 									value={value}
 									onChange={onChange}
@@ -329,19 +340,17 @@ const Menu = (props) => {
 						/>
 					</FormGroup>
 
-
-
 					<FormGroup>
 						<Label for="Select">Menu Type</Label>
 						<Controller
 							name="menuType"
-							rules={{ required: true }}
+
 							control={control}
 							render={({ field: { value, onChange, ref } }) => (
 								<Select
 									name={'menuType'}
 									cacheOptions
-									required
+
 									defaultOptions
 									options={options}
 									value={value}
@@ -350,6 +359,10 @@ const Menu = (props) => {
 							)}
 						/>
 					</FormGroup>
+
+					<small className="text-danger" style={{ fontWeight: "bold" }}>
+						{menuType}
+					</small>
 
 					<FormGroup>
 						<Label for="name">Allergy Info</Label>
@@ -388,8 +401,12 @@ const Menu = (props) => {
 		setSubmitLoader(true);
 
 		if (category.value === undefined) {
-			setCategoryNotSelect(categoryData)
+			setEditCategoryNotSelect(categoryData)
 			setSubmitLoader(false);
+		}
+
+		if (editFormData.menuType === undefined) {
+			setMenuType("please select a Menu Type")
 		}
 
 		else {
@@ -535,7 +552,7 @@ const Menu = (props) => {
 										/>
 								}
 								<small>
-									{categoryNotSelect}
+									{editCategoryNotSelect}
 								</small>
 							</FormGroup>
 							<FormGroup>
@@ -620,13 +637,13 @@ const Menu = (props) => {
 		menu = props.menu.product.map((menu) => (
 			<>
 				<Col md={4} className={'mr-3'}>
-					<Row className={'shadow border-0 bg-white mt-2'}>
+					<Row className={'shadow border-0 bg-white mt-2 mb-4'}>
 						<Col md={7}>
 							<div className="mt-2">
 								<h3>{menu.productName}</h3>
 								<div className="d-flex justify-content-between align-items-center">
 									<p> {menu.productPrice}$ </p>
-									<p>{ menu.menuType }</p>
+									<p>{menu.menuType}</p>
 									<h4>{menu.time}</h4>
 								</div>
 								<button

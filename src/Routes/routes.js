@@ -15,6 +15,7 @@ import Orders from "../Components/customer/Pages/MyAccount/Orders/Orders";
 import Dashboard from "../Components/Admin/Pages/dashboard/ecommerce";
 import AdminVendor from "../Components/Admin/Pages/vendors/Vendors";
 import AdminCustomers from "../Components/Admin/Pages/customers/Customers";
+import Refund from "../Components/Admin/Pages/Refund/Refund";
 
 // Vendor Routes
 import EcommerceDashboard from "../Components/vendor/Pages/dashboard/ecommerce";
@@ -122,6 +123,10 @@ export const AdminLayoutPath = [
 		path: 'customers',
 		component: AdminCustomers
 	},
+	{
+		path: 'refunds',
+		component: Refund
+	}
 ]
 
 

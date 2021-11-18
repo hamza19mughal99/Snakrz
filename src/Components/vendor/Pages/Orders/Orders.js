@@ -8,6 +8,7 @@ import { useToasts } from "react-toast-notifications";
 import { vendorOrderCompleted, vendorOrderRejected, VendorOrderReady } from "../../../../lib/customer/Toaster/Toaster";
 import { Col, Modal, Row } from "react-bootstrap";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import GooglePlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 import 'react-tabs/style/react-tabs.css';
 import axios from "axios";
 import Loader from "../../../../lib/customer/Loader/Loader";
@@ -32,6 +33,8 @@ const Customers = props => {
 	const [isApiError, setIsApiError] = useState(false)
 	const [isMsgError, setIsMsgError] = useState(null)
 	const [customerLocation, setCustomerLocation] = useState(null)
+	const [showAddress, setShowAddress] = useState(null)
+
 
 	const token = localStorage.getItem('vendorToken');
 
@@ -194,6 +197,22 @@ const Customers = props => {
 	}
 
 	const MapModalHandler = (order) => {
+
+		console.log(order)
+
+		// navigator.geolocation.getCurrentPosition(function (position) {
+        //     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude}, ${position.coords.longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API}`)
+        //         .then((res) => {
+        //             let obj = {
+        //                 label: res.data.results[0].formatted_address,
+        //                 value: res.data.results[0],
+        //             }
+		// 			setShowAddress(obj)
+                    
+        //         })
+
+        // });
+
 		setCustomerLocation(order.customer.location)
 		setShow2(!show2)
 	}
@@ -315,11 +334,9 @@ const Customers = props => {
 							{
 								orders.map((order, index) => {
 
-
 									let customerNumber, customerName, orderStatus, delivery, notes, price;
 
 									if (order) {
-
 										customerName = order.customer.name
 										delivery = order.delivery
 										price = order.totalPrice

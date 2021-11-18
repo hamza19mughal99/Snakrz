@@ -225,7 +225,6 @@ const Settings = props => {
 											<Form.Group className={'py-3'}>
 												<Form.Label> Shop Description </Form.Label>
 												<ReactQuill name="description" onChange={editorChangeHandler} value={shop.description} required modules={modules} formats={formats} placeholder="Leave Your Description" />
-												{/*<Form.Control as="textarea" required placeholder="Leave Description Here"  {...register("description")}/>*/}
 											</Form.Group>
 										</Card.Body>
 									</Card>

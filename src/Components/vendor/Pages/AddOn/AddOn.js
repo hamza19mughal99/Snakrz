@@ -166,7 +166,7 @@ const AddOn = props => {
 
 	const [editAddOnErrors, setEditAddOnErrors] = useState('')
 
-	const [editDisabledBtn, setEditDisabledBtn] = useState(true)
+	const [editDisabledBtn, setEditDisabledBtn] = useState(false)
 
 	const onAddEditHandler = () => {
 		if (editFormData.title === '' || editFormData.name === '' || editFormData.price === '') {
@@ -241,17 +241,17 @@ const AddOn = props => {
 	const onRemoveEditHandler = (item) => {
 		console.log(editAddOnArr.length)
 
-	
-
 		let arr;
 		arr = editAddOnArr
 		let selectedItemIndex = arr.indexOf(item)
 		arr.splice(selectedItemIndex, 1)
 		setEditAddOnArr([...arr])
-		
 		if (arr.length === 0) {
+			console.log("length of bucket", arr.length)
+
 			setEditDisabledBtn(true)
 		}
+		
 	}
 
 	const onRemoveHandler = (item) => {
@@ -262,7 +262,7 @@ const AddOn = props => {
 		let selectedItemIndex = arr.indexOf(item)
 		arr.splice(selectedItemIndex, 1)
 		setAddOnArr([...arr])
-		console.log(arr.length)
+		
 		if(arr.length === 0) {
 			setDisabledBtn(true)
 		}

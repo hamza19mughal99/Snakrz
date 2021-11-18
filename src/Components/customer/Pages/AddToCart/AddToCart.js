@@ -3,7 +3,7 @@ import { CartContext } from '../../../../GlobalStore/CartContext';
 import { connect } from "react-redux";
 import * as actions from "../../../../Store/customer/actions/index";
 import axios from "axios";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import "./AddToCart.css";
 import { useToasts } from "react-toast-notifications";
@@ -263,6 +263,81 @@ const AddToCart = (props) => {
                                 cart.map((val) => {
                                     return (
                                         <>
+                                            {/* <Row >
+                                                <Col md={4} sm={4}>
+                                                    <p className={'m-0 p-0'} style={{ fontWeight: 'bold', color: '#FF4200' }}> {val.productName} </p>
+                                                    {
+                                                        val.addOn.map((addOn) => (
+                                                            <p className={'text-muted m-0 p-0'}>+{addOn.name} - ${addOn.price}</p>
+
+                                                        ))
+                                                    }
+                                                </Col>
+
+                                                <Col md={2} sm={2}>
+                                                    ${val.productPrice}
+                                                </Col>
+
+                                                <Col md={2} sm={2}>
+                                                    {
+                                                        val.Quantity > 1 ?
+                                                            <span className="minus mr-2">
+                                                                <FaMinus
+                                                                    onClick={
+                                                                        () =>
+                                                                            dispatch({
+                                                                                type: 'DRC',
+                                                                                id: val._id,
+                                                                                val
+                                                                            })
+                                                                    }
+                                                                />
+                                                            </span> :
+                                                            <span className="minus mr-1">
+                                                                <FaMinus />
+                                                            </span>
+                                                    }
+
+                                                    <span className="quantity">
+                                                        {val.Quantity}
+                                                    </span>
+                                                    <span className="plus ml-2">
+                                                        <FaPlus
+                                                            onClick={
+                                                                () =>
+                                                                    dispatch({
+                                                                        type: 'INC',
+                                                                        id: val._id,
+                                                                        val
+                                                                    })
+                                                            }
+                                                        />
+                                                    </span>
+                                                </Col>
+
+                                                <Col md={2} sm={2}>
+                                                    {
+                                                        val.addOn.length > 0 ?
+                                                            <span>
+                                                                ${val.Quantity * val.productPrice + addAddonPrice(val)}
+                                                            </span>
+                                                            : <span>  ${val.Quantity * val.productPrice}  </span>
+                                                    }
+                                                </Col>
+
+                                                <Col md={2} sm={2}>
+                                                    <FaTrash
+                                                        onClick={
+                                                            () =>
+                                                                dispatch({
+                                                                    type: 'TRASH',
+                                                                    id: val._id,
+                                                                    val
+                                                                })
+                                                        }
+                                                    />
+                                                </Col>
+                                            </Row> */}
                                             <div key={val._id} className="cart-details d-flex justify-content-between">
                                                 <div className="cart-name">
                                                     <p className={'m-0 p-0'} style={{ fontWeight: 'bold', color: '#FF4200' }}> {val.productName} </p>
@@ -314,14 +389,15 @@ const AddToCart = (props) => {
                                                     </span>
 
                                                 </div>
-
-                                                {
-                                                    val.addOn.length > 0 ?
-                                                        <span>
-                                                            ${val.Quantity * val.productPrice + addAddonPrice(val)}
-                                                        </span>
-                                                        : <span>  ${val.Quantity * val.productPrice}  </span>
-                                                }
+                                                <div>
+                                                    {
+                                                        val.addOn.length > 0 ?
+                                                            <span>
+                                                                ${val.Quantity * val.productPrice + addAddonPrice(val)}
+                                                            </span>
+                                                            : <span>  ${val.Quantity * val.productPrice}  </span>
+                                                    }
+                                                </div>
 
                                                 <div className="delete">
                                                     <FaTrash

@@ -115,8 +115,6 @@ const ShopCreate = props => {
 		formData.append('shopImage', data.shopImage[0]);
 		formData.append('shopBannerImage', data.shopBannerImage[0]);
 
-		console.log(formData)
-
 		axios.post('/vendor/shop', formData, { headers: { "Authorization": `Bearer ${token}` } })
 			.then((res) => {
 				localStorage.setItem('isProfileSetup', res.data.profileSetup);
@@ -161,7 +159,7 @@ const ShopCreate = props => {
 									</Form.Group>
 									<Form.Group className={'py-3'}>
 										<Form.Label> Shop Description </Form.Label>
-										<ReactQuill name="description" onChange={editorChangeHandler} value={description} modules={modules} formats={formats} placeholder="Leave Your Description" />
+										<ReactQuill name="description" required onChange={editorChangeHandler} value={description} modules={modules} formats={formats} placeholder="Leave Your Description" />
 									</Form.Group>
 									<Card className={'my-4 p-4'}>
 										<p className={'text-center'}> Shop Address </p>
@@ -172,7 +170,7 @@ const ShopCreate = props => {
 												{...register("address", ShopValidation.shopAddress)} />
 
 											<small className="text-danger" style={{ fontWeight: "bold" }} >
-												{errors.shopAddress && errors.shopAddress.message}
+												{errors.address && errors.address.message}
 											</small>
 										</Form.Group>
 										<Row className={'align-items-center justify-content-center mt-4'}>

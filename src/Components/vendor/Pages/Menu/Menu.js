@@ -559,7 +559,7 @@ const Menu = (props) => {
 								<Label for="Select">Add On</Label>
 								<AsyncSelect
 									name={'addOn'}
-									required
+									
 									cacheOptions
 									defaultOptions
 									isMulti
@@ -587,6 +587,7 @@ const Menu = (props) => {
 								<Label for="name">Allergy Info</Label>
 								<Input
 									type="textarea"
+									required
 									name="allergyInfo"
 									placeholder="Allergy Info"
 									value={editFormData.allergyInfo}
